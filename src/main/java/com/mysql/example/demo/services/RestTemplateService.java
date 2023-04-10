@@ -36,7 +36,7 @@ public class RestTemplateService implements IRestTemplateService{
     @Override
     public <T, R> T getForObjectResponse(Class<T> clazz, String url, Hashtable<String, String> customHeaders) {
         try {
-            System.out.println("Get request made to " + url);
+            System.out.println("Get request made to: " + url);
             HttpHeaders headers = createHttpHeaders(customHeaders);
             HttpEntity httpEntity = new HttpEntity(headers);
             ObjectMapper objectMapper = new ObjectMapper();
