@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mysql.example.demo.constants.ApplicationConstants;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerResponse;
 import com.mysql.example.demo.services.interfaces.INBAPlayerRequestService;
@@ -24,7 +25,7 @@ public class NBAPlayerRequestService implements INBAPlayerRequestService {
     public <T> T PlayerResponse_Get(Class<T> clazz, String token) {
         String url = "https://api.sportsdata.io/v3/nba/scores/json/Players";
         Hashtable<String, String> customHeaders = new Hashtable<String, String>();
-        customHeaders.put("Ocp-Apim-Subscription-Key", "cdbf378501a14087a04a26191b9fd67c");
+        customHeaders.put("Ocp-Apim-Subscription-Key", ApplicationConstants.OcpAminSubscriptionKey);
         //PlayerResponse[] response = requestTemplateService.getForObjectResponse(PlayerResponse[].class, url, customHeaders);
         return (T) requestTemplateService.getForObjectResponse(PlayerResponse[].class, url, customHeaders);
     }
@@ -34,7 +35,7 @@ public class NBAPlayerRequestService implements INBAPlayerRequestService {
             String date) {
                 String url = "https://api.sportsdata.io/v3/nba/projections/json/PlayerGameProjectionStatsByPlayer/" + date + "/" + playerId;
                 Hashtable<String, String> customHeaders = new Hashtable<String, String>();
-                customHeaders.put("Ocp-Apim-Subscription-Key", "cdbf378501a14087a04a26191b9fd67c");
+                customHeaders.put("Ocp-Apim-Subscription-Key", ApplicationConstants.OcpAminSubscriptionKey);
                 //PlayerResponse[] response = requestTemplateService.getForObjectResponse(PlayerResponse[].class, url, customHeaders);
                 return (T) requestTemplateService.getForObjectResponseType(clazz, url, customHeaders);
     }
