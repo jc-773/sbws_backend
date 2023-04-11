@@ -7,6 +7,7 @@ node {
     sh "./mvnw clean install -DskipTests"
   }
 
+<<<<<<< HEAD:src/main/java/com/mysql/example/demo/JenkinsFile
    stage("Tests and Deployment") {
     stage("Runing unit tests") {
       sh "./mvnw test -Punit"
@@ -16,3 +17,14 @@ node {
     }
   }
 }
+=======
+   #stage("Tests and Deployment") {
+    #stage("Runing unit tests") {
+      #sh "./mvnw test -Punit"
+    #}
+    #stage("Deployment") {
+      #sh 'nohup ./mvnw spring-boot:run -Dserver.port=8001 &'
+   # }
+  #}
+}
+>>>>>>> bb6974bb26c44c7512a4b41aba2bd4be92602538:src/main/java/com/mysql/example/demo/Jenkinsfile
