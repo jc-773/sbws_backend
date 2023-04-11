@@ -1,18 +1,18 @@
 node {
   stage("Clone the project") {
-    git branch: 'main', url: 'https://github.com/jc-773/sbws_backend'
+    git branch: 'master', url: 'https://github.com/jc-773/sbws_backend'
   }
 
   stage("Compilation") {
     sh "./mvnw clean install -DskipTests"
   }
 
-   #stage("Tests and Deployment") {
-    #stage("Runing unit tests") {
-      #sh "./mvnw test -Punit"
-    #}
-    #stage("Deployment") {
-      #sh 'nohup ./mvnw spring-boot:run -Dserver.port=8001 &'
-   # }
-  #}
+   stage("Tests and Deployment") {
+    stage("Runing unit tests") {
+      sh "./mvnw test -Punit"
+    }
+    stage("Deployment") {
+      sh 'nohup ./mvnw spring-boot:run -Dserver.port=8001 &'
+    }
+  }
 }
