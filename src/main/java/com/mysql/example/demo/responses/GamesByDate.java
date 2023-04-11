@@ -1,10 +1,12 @@
 package com.mysql.example.demo.responses;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GamesByDate {
     @JsonProperty("GameEndDateTime")
-    public int gameEndDateTime;
+    public String gameEndDateTime;
 
     @JsonProperty("GameID")
     public int gameID;
@@ -67,6 +69,6 @@ public class GamesByDate {
     public String dateTimeUTC;
 
     @JsonProperty("SeriesInfo")
-    public String seriesInfo;
+    public SeriesInfo seriesInfo;
 
 }
