@@ -40,6 +40,14 @@ public class NBAPlayerRequestService implements INBAPlayerRequestService {
                 return (T) requestTemplateService.getForObjectResponseType(clazz, url, customHeaders);
     }
 
+    @Override
+    public <T> T PlayerByTeamResponse_Get(Class<T> clazz, String key, String team) {
+       String url = "https://api.sportsdata.io/v3/nba/scores/json/Players/" + team + "?key=" + key;
+       return (T) requestTemplateService.getForObjectResponse(clazz, url, null);
+
+    }
+
+    
   
     
 }

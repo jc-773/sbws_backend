@@ -11,8 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysql.example.demo.responses.PlayerByTeamResponse;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerResponse;
+import com.mysql.example.demo.responses.containers.PlayerByTeamContainer;
+import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponseType;
 
@@ -85,6 +88,8 @@ public class PlayerService implements IPlayerService {
         return null;
     }
 
+    
+
     @Override
     public String getPlayerIdForProjectiions(List<PlayerResponse> playerResponse, String playerFirstName,
             String playerLastName) {
@@ -114,6 +119,32 @@ public class PlayerService implements IPlayerService {
         }
 
         return playerProfileResponse.playerProfileResponseType.get(0).playerID;
+    }
+
+    @Override
+    public ResponseEntity<List<PlayerByTeamMobileResponse>> returnPlayerRosterByTeam(
+            List<PlayerByTeamResponse> roster) {
+             try {
+                Map<String, List<PlayerByTeamResponse>> playerByTeamResponse = new HashMap<>();
+                playerByTeamResponse.put("key", roster);
+                String jsonString = new ObjectMapper().writeValueAsString(playerByTeamResponse);
+                ObjectMapper mapper = new ObjectMapper();
+                PlayerByTeamContainer readValue = mapper.readValue(jsonString, PlayerByTeamContainer.class);
+                List<PlayerByTeamMobileResponse> playersByTeamList = new ArrayList<>();
+                for(PlayerByTeamResponse player : readValue.response) {
+                    PlayerByTeamMobileResponse gamesByDateMobileResponse = new PlayerByTeamMobileResponse();
+                    gamesByDateMobileResponse.firstName = player.firstName;
+                    gamesByDateMobileResponse.lastName = player.lastName;
+                    gamesByDateMobileResponse.position = player.position;
+                    gamesByDateMobileResponse.status = player.status;
+                    playersByTeamList.add(gamesByDateMobileResponse);
+                }
+                return new ResponseEntity<List<PlayerByTeamMobileResponse>>(playersByTeamList, HttpStatus.OK);
+             } catch (Exception e) {
+                // TODO: handle exception
+             }
+
+             return null;
     }
 
 }

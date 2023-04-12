@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.mysql.example.demo.responses.GamesByDate;
+import com.mysql.example.demo.responses.PlayerByTeamResponse;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerResponse;
 import com.mysql.example.demo.responses.mobile.GamesByDateMobileResponse;
@@ -27,6 +28,7 @@ public class BackendRequestService implements IBackendRequestService {
         this.gamesByDateRequestService = gamesByDateRequestService;
     }
 
+    // Player Services
     @Override
     public List<PlayerResponse> PlayerInformation_Get(String key) {
         return (List<PlayerResponse>) nbaPlayerRequests.PlayerResponse_Get(PlayerResponse.class, key);
@@ -39,6 +41,13 @@ public class BackendRequestService implements IBackendRequestService {
         playerId, date);
     }
 
+    @Override
+    public List<PlayerByTeamResponse> PlayerByTeamResponse_Get(String key, String team) {
+        return (List<PlayerByTeamResponse>) nbaPlayerRequests.PlayerByTeamResponse_Get(PlayerByTeamResponse.class, key,
+        team);
+    }
+
+    //Games Services
     @Override
     public List<GamesByDate> GamesByDate_Get(String date, String key) {
        return (List<GamesByDate>) gamesByDateRequestService.GamesByDateResponse_Get(GamesByDate.class, date, key);
