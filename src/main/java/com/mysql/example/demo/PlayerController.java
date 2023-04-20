@@ -16,18 +16,21 @@ import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
 import com.mysql.example.demo.services.interfaces.IBackendRequestService;
+import com.mysql.example.demo.services.interfaces.IPlayerProfileDataLayerService;
 
 @RestController
 public class PlayerController {
     private final IBackendRequestService requests;
     private final IPlayerService playerService;
     private final IPlayerResponseService responseEntity;
+    private final IPlayerProfileDataLayerService playerDataService;
 
     @Autowired
-    public PlayerController(IBackendRequestService requests, IPlayerService playerService, IPlayerResponseService responseEntity) {
+    public PlayerController(IBackendRequestService requests, IPlayerService playerService, IPlayerResponseService responseEntity, IPlayerProfileDataLayerService playerDataService) {
         this.requests = requests;
         this.playerService = playerService;
         this.responseEntity = responseEntity;
+        this.playerDataService = playerDataService;
     }
 
 
@@ -47,9 +50,6 @@ public class PlayerController {
         
     }
 
-    @RequestMapping(value = "/nba", method=RequestMethod.GET)
-    public String getPlayerString(@RequestHeader(value = "name") String host) {
-        return host;
-    }
+   
 
 }

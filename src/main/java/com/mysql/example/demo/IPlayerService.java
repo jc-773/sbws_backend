@@ -11,7 +11,6 @@ import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
 
 public interface IPlayerService {
-    public Player savePlayer( List<PlayerResponse> playerResponse);
     public String getPlayerIdForProjectiions(List<PlayerResponse> playerResponse,  String playerFirstName, String playerLastName);
     public ResponseEntity<PlayerProfileResponse> returnPlayerProfile(List<PlayerResponse> playerResponse, String playerFirstName, String playerLastName, PlayerProjectionResponse playerProjectionResponse);
     public ResponseEntity<List<PlayerByTeamMobileResponse>> returnPlayerRosterByTeam(List<PlayerByTeamResponse> roster); 

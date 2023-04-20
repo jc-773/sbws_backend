@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysql.example.demo.repositories.PlayerProfileRepository;
 import com.mysql.example.demo.responses.PlayerByTeamResponse;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerResponse;
@@ -18,25 +19,14 @@ import com.mysql.example.demo.responses.containers.PlayerByTeamContainer;
 import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponseType;
+import com.mysql.example.demo.services.dataServices.PlayerProfileDataService;
 
 @Service
 public class PlayerService implements IPlayerService {
 
-    // @Autowired
-    // TestRepository testRepository;
-
-    // public PlayerService(TestRepository testRepository) {
-    // this.testRepository = testRepository;
-    // }
-
-    @Override
-    public Player savePlayer(List<PlayerResponse> playerResponse) {
-        Player player = new Player();
-        // player.name = playerResponse.get(0).response.get(0).firstName;
-        // testRepository.save(player);
-
-        return player;
-    }
+   @Autowired
+   PlayerProfileDataService playerProfileDataService;
+   
 
     @Override
     public ResponseEntity<PlayerProfileResponse> returnPlayerProfile(List<PlayerResponse> playerResponse,
@@ -73,13 +63,9 @@ public class PlayerService implements IPlayerService {
                 }
 
             }
-            // News section
-            // playerProfileResponse.playerProfileResponseType.get(0).playerNewsResponse =
-            // playerNewsResponse;
+           
 
-            // //Projection section
-            // AddPlayerProjectionsSection(playerProfileResponse, playerProjectionResponse);
-            
+            playerProfileDataService.savePlayer(playerProfileResponse.playerProfileResponseType.get(0));
             return new ResponseEntity<PlayerProfileResponse>(playerProfileResponse, HttpStatus.OK);
 
         } catch (Exception e) {
