@@ -36,11 +36,11 @@ public class PlayerController {
 
     @RequestMapping(value = "/nba/players", method=RequestMethod.GET)
     public ResponseEntity<PlayerProfileResponse> getPlayerProfile(@RequestHeader(value = "Ocp-Apim-Subscription-Key") String sdToken, @RequestHeader(value = "X-RapidAPI-Key") String token, 
-    @RequestHeader(value = "X-RapidAPI-Host") String host, @RequestHeader String playerFirstName, @RequestHeader String playerLastName) {
+    @RequestHeader(value = "X-RapidAPI-Host") String host, @RequestHeader String playerFirstName, @RequestHeader String playerLastName, @RequestHeader String date) {
        try {
            List<PlayerResponse> playerResponse =  requests.PlayerInformation_Get(sdToken);
            String playerID = playerService.getPlayerIdForProjectiions(playerResponse, playerFirstName, playerLastName);
-           PlayerProjectionResponse playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, "2023-04-08");
+           PlayerProjectionResponse playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, date);
            return playerService.returnPlayerProfile(playerResponse, playerFirstName, playerLastName, playerProjectionResponse);
         } catch (Exception e) {
            e.printStackTrace();

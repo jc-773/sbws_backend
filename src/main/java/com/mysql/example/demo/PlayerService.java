@@ -24,26 +24,18 @@ import com.mysql.example.demo.services.dataServices.PlayerProfileDataService;
 @Service
 public class PlayerService implements IPlayerService {
 
-   @Autowired
-   PlayerProfileDataService playerProfileDataService;
-   
+    @Autowired
+    PlayerProfileDataService playerProfileDataService;
 
     @Override
     public ResponseEntity<PlayerProfileResponse> returnPlayerProfile(List<PlayerResponse> playerResponse,
             String playerFirstName, String playerLastName, PlayerProjectionResponse playerProjectionResponse) {
 
         try {
-            PlayerProfileResponse playerProfileResponse = new PlayerProfileResponse();
-            playerProfileResponse.playerProfileResponseType = new ArrayList();
-            playerProfileResponse.playerProfileResponseType.add(new PlayerProfileResponseType());
-            playerProfileResponse.playerProfileResponseType.get(0).firstName = playerFirstName;
-            playerProfileResponse.playerProfileResponseType.get(0).lastName = playerLastName;
-            playerProfileResponse.playerProfileResponseType.get(0).projectedPoints = playerProjectionResponse.points;
-            playerProfileResponse.playerProfileResponseType.get(0).projectedAssists = playerProjectionResponse.assists;
-            playerProfileResponse.playerProfileResponseType.get(0).projectedRebounds = playerProjectionResponse.rebounds;
-            playerProfileResponse.playerProfileResponseType.get(0).projectedThreesMade = playerProjectionResponse.threePointersMade;
+            PlayerProfileResponse playerProfileResponse = buildPlayerProfileResponse(playerFirstName, playerLastName,
+                    playerProjectionResponse);
 
-            // Find player by ID section
+            // TODO: Make generic to use across all response objects
             Map<String, List<PlayerResponse>> playerProfMap = new HashMap<>();
             playerProfMap.put("key", playerResponse);
             String jsonString = new ObjectMapper().writeValueAsString(playerProfMap);
@@ -63,7 +55,6 @@ public class PlayerService implements IPlayerService {
                 }
 
             }
-           
 
             playerProfileDataService.savePlayer(playerProfileResponse.playerProfileResponseType.get(0));
             return new ResponseEntity<PlayerProfileResponse>(playerProfileResponse, HttpStatus.OK);
@@ -73,8 +64,6 @@ public class PlayerService implements IPlayerService {
         }
         return null;
     }
-
-    
 
     @Override
     public String getPlayerIdForProjectiions(List<PlayerResponse> playerResponse, String playerFirstName,
@@ -110,27 +99,44 @@ public class PlayerService implements IPlayerService {
     @Override
     public ResponseEntity<List<PlayerByTeamMobileResponse>> returnPlayerRosterByTeam(
             List<PlayerByTeamResponse> roster) {
-             try {
-                Map<String, List<PlayerByTeamResponse>> playerByTeamResponse = new HashMap<>();
-                playerByTeamResponse.put("key", roster);
-                String jsonString = new ObjectMapper().writeValueAsString(playerByTeamResponse);
-                ObjectMapper mapper = new ObjectMapper();
-                PlayerByTeamContainer readValue = mapper.readValue(jsonString, PlayerByTeamContainer.class);
-                List<PlayerByTeamMobileResponse> playersByTeamList = new ArrayList<>();
-                for(PlayerByTeamResponse player : readValue.response) {
-                    PlayerByTeamMobileResponse gamesByDateMobileResponse = new PlayerByTeamMobileResponse();
-                    gamesByDateMobileResponse.firstName = player.firstName;
-                    gamesByDateMobileResponse.lastName = player.lastName;
-                    gamesByDateMobileResponse.position = player.position;
-                    gamesByDateMobileResponse.status = player.status;
-                    playersByTeamList.add(gamesByDateMobileResponse);
-                }
-                return new ResponseEntity<List<PlayerByTeamMobileResponse>>(playersByTeamList, HttpStatus.OK);
-             } catch (Exception e) {
-                // TODO: handle exception
-             }
+        try {
+            Map<String, List<PlayerByTeamResponse>> playerByTeamResponse = new HashMap<>();
+            playerByTeamResponse.put("key", roster);
+            String jsonString = new ObjectMapper().writeValueAsString(playerByTeamResponse);
+            ObjectMapper mapper = new ObjectMapper();
+            PlayerByTeamContainer readValue = mapper.readValue(jsonString, PlayerByTeamContainer.class);
+            List<PlayerByTeamMobileResponse> playersByTeamList = new ArrayList<>();
+            for (PlayerByTeamResponse player : readValue.response) {
+                PlayerByTeamMobileResponse gamesByDateMobileResponse = new PlayerByTeamMobileResponse();
+                gamesByDateMobileResponse.firstName = player.firstName;
+                gamesByDateMobileResponse.lastName = player.lastName;
+                gamesByDateMobileResponse.position = player.position;
+                gamesByDateMobileResponse.status = player.status;
+                playersByTeamList.add(gamesByDateMobileResponse);
+            }
+            return new ResponseEntity<List<PlayerByTeamMobileResponse>>(playersByTeamList, HttpStatus.OK);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
-             return null;
+        return null;
     }
 
+    private static PlayerProfileResponse buildPlayerProfileResponse(String firstName, String lastName,
+            PlayerProjectionResponse playerProjectionResponse) {
+        PlayerProfileResponse playerProfileResponse = new PlayerProfileResponse();
+        playerProfileResponse.playerProfileResponseType = new ArrayList();
+        playerProfileResponse.playerProfileResponseType.add(new PlayerProfileResponseType());
+        playerProfileResponse.playerProfileResponseType.get(0).firstName = firstName;
+        playerProfileResponse.playerProfileResponseType.get(0).lastName = lastName;
+        if (playerProjectionResponse != null) {
+            playerProfileResponse.playerProfileResponseType.get(0).projectedPoints = playerProjectionResponse.points;
+            playerProfileResponse.playerProfileResponseType.get(0).projectedAssists = playerProjectionResponse.assists;
+            playerProfileResponse.playerProfileResponseType
+                    .get(0).projectedRebounds = playerProjectionResponse.rebounds;
+            playerProfileResponse.playerProfileResponseType
+                    .get(0).projectedThreesMade = playerProjectionResponse.threePointersMade;
+        }
+        return playerProfileResponse;
+    }
 }
