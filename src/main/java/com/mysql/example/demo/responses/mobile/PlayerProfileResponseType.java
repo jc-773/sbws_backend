@@ -9,8 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PlayerProfileResponseType {
 
     @Id
-    private String id;
-
     @JsonProperty("playerID")
     public String playerID;
 
@@ -45,8 +43,8 @@ public class PlayerProfileResponseType {
 
     }
 
-    public PlayerProfileResponseType(String id, String team, String firstName, String lastName) {
-        this.id = id;
+    public PlayerProfileResponseType(String playerID, String team, String firstName, String lastName) {
+        this.playerID = playerID;
         this.team = team;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -54,10 +52,9 @@ public class PlayerProfileResponseType {
 
     
 
-    public PlayerProfileResponseType(String id, String playerID, String status, String team, String position,
+    public PlayerProfileResponseType(String playerID, String status, String team, String position,
             String firstName, String lastName, Double projectedThreesMade, Double projectedRebounds,
             Double projectedAssists, Double projectedPoints) {
-        this.id = id;
         this.playerID = playerID;
         this.status = status;
         this.team = team;
@@ -68,14 +65,6 @@ public class PlayerProfileResponseType {
         this.projectedRebounds = projectedRebounds;
         this.projectedAssists = projectedAssists;
         this.projectedPoints = projectedPoints;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getPlayerID() {
