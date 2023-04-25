@@ -36,20 +36,18 @@ public class PlayerController {
 
     @RequestMapping(value = "/nba/players", method=RequestMethod.GET)
     public ResponseEntity<PlayerProfileResponse> getPlayerProfile(@RequestHeader(value = "Ocp-Apim-Subscription-Key") String sdToken, @RequestHeader(value = "X-RapidAPI-Key") String token, 
-    @RequestHeader(value = "X-RapidAPI-Host") String host, @RequestHeader String playerID, @RequestHeader(value = "playerFirstName", required = false) String playerFirstName, @RequestHeader(value = "playerLastName", required = false) String playerLastName, @RequestHeader String date) {
+    @RequestHeader(value = "X-RapidAPI-Host") String host, @RequestHeader String playerID, @RequestHeader(value = "playerFirstName", required = false) String playerFirstName, @RequestHeader(value = "playerLastName", required = false) String playerLastName, @RequestHeader(value = "date", required = false) String date) {
        try {
            //TODO: Make an async background task 
-            List<PlayerResponse> playerResponse =  requests.PlayerInformation_Get(sdToken);
-            playerDataService.savePlayers(playerResponse);
+            // List<PlayerResponse> playerResponse =  requests.PlayerInformation_Get(sdToken);
+            // playerDataService.savePlayers(playerResponse);
            //String playerID = playerService.getPlayerIdForProjectiions(playerResponse, playerFirstName, playerLastName);
-           PlayerProjectionResponse playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, date);
+           PlayerProjectionResponse playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, "2023-04-22");
            return playerService.returnPlayerProfileFromBackend(playerID, playerProjectionResponse);
         } catch (Exception e) {
            e.printStackTrace();
        }
-       
         return null;
-        
     }
 
    
