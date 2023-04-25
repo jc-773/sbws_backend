@@ -1,5 +1,7 @@
 package com.mysql.example.demo.responses;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PlayerByTeamResponse {

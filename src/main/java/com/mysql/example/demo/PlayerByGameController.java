@@ -33,8 +33,6 @@ public class PlayerByGameController {
        try {
         List<PlayerByTeamResponse> roster = requests.PlayerByTeamResponse_Get(key, team);
             return playerService.returnPlayerRosterByTeam(roster);
-            
-           //return playerService.returnPlayerProfile(playerResponse, playerFirstName, playerLastName, playerProjectionResponse);
         } catch (Exception e) {
            e.printStackTrace();
        }

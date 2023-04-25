@@ -1,8 +1,13 @@
 package com.mysql.example.demo.responses.containers;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@Document("NBA_Player_Information")
 public class PlayerResponseContainer {
+    @Id
     @JsonProperty("PlayerID")
     public String playerID;
 
@@ -149,4 +154,6 @@ public class PlayerResponseContainer {
 
     @JsonProperty("NbaDotComPlayerID")
     public String nbaDotComPlayerID;
+
+    
 }

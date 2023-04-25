@@ -1,9 +1,11 @@
 package com.mysql.example.demo.responses;
 
-import java.util.List;
+
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@Document
 public class GamesByDate {
     @JsonProperty("GameEndDateTime")
     public String gameEndDateTime;
