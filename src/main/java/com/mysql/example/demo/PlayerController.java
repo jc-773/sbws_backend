@@ -42,7 +42,7 @@ public class PlayerController {
             // List<PlayerResponse> playerResponse =  requests.PlayerInformation_Get(sdToken);
             // playerDataService.savePlayers(playerResponse);
            //String playerID = playerService.getPlayerIdForProjectiions(playerResponse, playerFirstName, playerLastName);
-           PlayerProjectionResponse playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, "2023-04-22");
+           PlayerProjectionResponse playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, date);
            return playerService.returnPlayerProfileFromBackend(playerID, playerProjectionResponse);
         } catch (Exception e) {
            e.printStackTrace();

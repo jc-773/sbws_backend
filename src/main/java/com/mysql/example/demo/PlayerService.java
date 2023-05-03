@@ -45,6 +45,7 @@ public class PlayerService implements IPlayerService {
                 gamesByDateMobileResponse.lastName = player.lastName;
                 gamesByDateMobileResponse.position = player.position;
                 gamesByDateMobileResponse.status = player.status;
+                gamesByDateMobileResponse.playerID = player.playerID;
                 playersByTeamList.add(gamesByDateMobileResponse);
             }
             return new ResponseEntity<List<PlayerByTeamMobileResponse>>(playersByTeamList, HttpStatus.OK);
