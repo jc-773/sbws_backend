@@ -1,4 +1,4 @@
-package com.mysql.example.demo.services.interfaces;
+package com.mysql.example.demo.services.backendExternalRequestServices.interfaces;
 
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 

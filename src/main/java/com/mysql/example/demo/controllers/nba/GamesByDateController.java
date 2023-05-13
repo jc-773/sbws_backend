@@ -1,4 +1,4 @@
-package com.mysql.example.demo;
+package com.mysql.example.demo.controllers.nba;
 
 import java.util.List;
 
@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mysql.example.demo.responses.GamesByDate;
 import com.mysql.example.demo.responses.mobile.GamesByDateMobileResponse;
-import com.mysql.example.demo.services.interfaces.IBackendRequestService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
+import com.mysql.example.demo.services.clientRequestServices.interfaces.IGamesByDateClientService;
 
 @RestController
 public class GamesByDateController {
     private final IBackendRequestService requests;
     private final IGamesByDateClientService gamesService;
+
     @Autowired
     public GamesByDateController(IBackendRequestService requests, IGamesByDateClientService gamesService) {
         this.requests = requests;

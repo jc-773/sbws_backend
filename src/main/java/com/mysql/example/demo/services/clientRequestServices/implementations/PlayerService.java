@@ -1,4 +1,4 @@
-package com.mysql.example.demo;
+package com.mysql.example.demo.services.clientRequestServices.implementations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +20,7 @@ import com.mysql.example.demo.responses.containers.PlayerResponseContainer;
 import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponseType;
+import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerService;
 import com.mysql.example.demo.services.dataServices.PlayerProfileDataService;
 
 @Service

@@ -1,4 +1,4 @@
-package com.mysql.example.demo.services;
+package com.mysql.example.demo.services.backendExternalRequestServices.implementations;
 
 import java.util.Hashtable;
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.mysql.example.demo.constants.ApplicationConstants;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerResponse;
-import com.mysql.example.demo.services.interfaces.INBAPlayerRequestService;
-import com.mysql.example.demo.services.interfaces.IRestTemplateService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.INBAPlayerRequestService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IRestTemplateService;
 
 @Service
 public class NBAPlayerRequestService implements INBAPlayerRequestService {

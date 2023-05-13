@@ -1,4 +1,4 @@
-package com.mysql.example.demo;
+package com.mysql.example.demo.controllers.nba;
 
 import java.util.List;
 
@@ -15,8 +15,10 @@ import org.springframework.web.client.RestTemplate;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
-import com.mysql.example.demo.services.interfaces.IBackendRequestService;
-import com.mysql.example.demo.services.interfaces.IPlayerProfileDataLayerService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IPlayerProfileDataLayerService;
+import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerResponseService;
+import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerService;
 
 @RestController
 public class PlayerController {
@@ -53,3 +55,4 @@ public class PlayerController {
    
 
 }
+

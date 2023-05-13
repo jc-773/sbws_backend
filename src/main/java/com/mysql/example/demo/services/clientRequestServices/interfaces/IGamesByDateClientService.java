@@ -1,4 +1,4 @@
-package com.mysql.example.demo;
+package com.mysql.example.demo.services.clientRequestServices.interfaces;
 
 import java.util.List;
 

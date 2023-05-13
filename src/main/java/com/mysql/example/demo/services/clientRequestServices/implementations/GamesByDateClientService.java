@@ -1,4 +1,4 @@
-package com.mysql.example.demo;
+package com.mysql.example.demo.services.clientRequestServices.implementations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.example.demo.responses.GamesByDate;
 import com.mysql.example.demo.responses.containers.GamesByDateContainer;
 import com.mysql.example.demo.responses.mobile.GamesByDateMobileResponse;
+import com.mysql.example.demo.services.clientRequestServices.interfaces.IGamesByDateClientService;
 
 @Service
 public class GamesByDateClientService implements IGamesByDateClientService{
