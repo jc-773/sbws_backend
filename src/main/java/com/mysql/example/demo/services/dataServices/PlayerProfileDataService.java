@@ -13,7 +13,7 @@ import com.mysql.example.demo.repositories.PlayerProfileRepository;
 import com.mysql.example.demo.responses.PlayerResponse;
 import com.mysql.example.demo.responses.containers.PlayerResponseContainer;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponseType;
-import com.mysql.example.demo.services.interfaces.IPlayerProfileDataLayerService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IPlayerProfileDataLayerService;
 
 @Service
 public class PlayerProfileDataService implements IPlayerProfileDataLayerService {

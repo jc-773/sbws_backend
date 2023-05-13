@@ -1,4 +1,4 @@
-package com.mysql.example.demo.services.interfaces;
+package com.mysql.example.demo.services.backendExternalRequestServices.interfaces;
 
 import java.util.Hashtable;
 

@@ -1,11 +1,11 @@
-package com.mysql.example.demo.services;
+package com.mysql.example.demo.services.backendExternalRequestServices.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mysql.example.demo.responses.GamesByDate;
-import com.mysql.example.demo.services.interfaces.IGamesByDateRequestService;
-import com.mysql.example.demo.services.interfaces.IRestTemplateService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IGamesByDateRequestService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IRestTemplateService;
 
 @Service
 public class GamesByDateRequestService implements IGamesByDateRequestService{

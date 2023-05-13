@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mysql.example.demo.IPlayerResponseService;
-import com.mysql.example.demo.IPlayerService;
 import com.mysql.example.demo.responses.PlayerByTeamResponse;
 import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
-import com.mysql.example.demo.services.interfaces.IBackendRequestService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
+import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerResponseService;
+import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerService;
 
 @RestController
 public class PlayerByGameController {

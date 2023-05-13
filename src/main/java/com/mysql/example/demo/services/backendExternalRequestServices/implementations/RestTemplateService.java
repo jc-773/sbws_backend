@@ -1,4 +1,4 @@
-package com.mysql.example.demo.services;
+package com.mysql.example.demo.services.backendExternalRequestServices.implementations;
 
 import java.util.Hashtable;
 import java.util.Set;
@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
-import com.mysql.example.demo.services.interfaces.IRestTemplateService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IRestTemplateService;
 
 @Service
 public class RestTemplateService implements IRestTemplateService{

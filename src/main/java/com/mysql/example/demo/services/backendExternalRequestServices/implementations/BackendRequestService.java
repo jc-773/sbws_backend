@@ -1,4 +1,4 @@
-package com.mysql.example.demo.services;
+package com.mysql.example.demo.services.backendExternalRequestServices.implementations;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import com.mysql.example.demo.responses.PlayerByTeamResponse;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerResponse;
 import com.mysql.example.demo.responses.mobile.GamesByDateMobileResponse;
-import com.mysql.example.demo.services.interfaces.IBackendRequestService;
-import com.mysql.example.demo.services.interfaces.IGamesByDateRequestService;
-import com.mysql.example.demo.services.interfaces.INBAPlayerRequestService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IGamesByDateRequestService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.INBAPlayerRequestService;
 
 @Service
 public class BackendRequestService implements IBackendRequestService {

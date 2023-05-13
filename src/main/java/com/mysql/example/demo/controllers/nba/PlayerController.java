@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.mysql.example.demo.IPlayerResponseService;
-import com.mysql.example.demo.IPlayerService;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
-import com.mysql.example.demo.services.interfaces.IBackendRequestService;
-import com.mysql.example.demo.services.interfaces.IPlayerProfileDataLayerService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
+import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IPlayerProfileDataLayerService;
+import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerResponseService;
+import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerService;
 
 @RestController
 public class PlayerController {
