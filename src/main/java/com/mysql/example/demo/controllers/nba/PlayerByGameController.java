@@ -1,4 +1,4 @@
-package com.mysql.example.demo;
+package com.mysql.example.demo.controllers.nba;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mysql.example.demo.IPlayerResponseService;
+import com.mysql.example.demo.IPlayerService;
 import com.mysql.example.demo.responses.PlayerByTeamResponse;
 import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
 import com.mysql.example.demo.services.interfaces.IBackendRequestService;
@@ -41,3 +43,4 @@ public class PlayerByGameController {
         
     }
 }
+
