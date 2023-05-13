@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.mysql.example.demo.Player;
+import com.mysql.example.demo.models.Player;
 import com.mysql.example.demo.responses.PlayerResponse;
 import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerResponseService;
 

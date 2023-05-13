@@ -1,4 +1,4 @@
-package com.mysql.example.demo;
+package com.mysql.example.demo.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
