@@ -1,7 +1,7 @@
 # sbws_backend
 A ready to go backend for getting NBA player projections for upcoming games. All you need is an OcpAminSubscriptionKey. In the near future a key will be provided.
 
-With a key, you can clone this repo, run the server locally, and retrieve data surrounding a current player, a current team, or matchups between requested teams.
+With a key, you can clone this repo, obtain the necessary maven dependencies, run the server locally, and retrieve data surrounding a current player, a current team, or matchups between requested teams.
 
 
 
