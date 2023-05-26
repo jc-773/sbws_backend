@@ -11,12 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.example.demo.repositories.PlayerProfileRepository;
 import com.mysql.example.demo.responses.PlayerByTeamResponse;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
-import com.mysql.example.demo.responses.PlayerResponse;
+import com.mysql.example.demo.responses.PlayerStatsNBADotCom;
 import com.mysql.example.demo.responses.containers.PlayerByTeamContainer;
 import com.mysql.example.demo.responses.containers.PlayerResponseContainer;
+import com.mysql.example.demo.responses.database.PlayerStatsNBADotComDocument;
 import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponseType;
@@ -59,10 +59,24 @@ public class PlayerService implements IPlayerService {
 
     @Override
     public ResponseEntity<PlayerProfileResponse> returnPlayerProfileFromBackend(String playerID,
-            PlayerProjectionResponse playerProjectionResponse) {
+            PlayerProjectionResponse playerProjectionResponse, Map<String, PlayerStatsNBADotCom> playerStats ) {
         try {
-
+            //TODO: Move to a batch task
+            //Store player stats retrieved from NBA.com
+            String jsonString = new ObjectMapper().writeValueAsString(playerStats);
+                ObjectMapper mapper = new ObjectMapper();
+                PlayerStatsNBADotCom readValue = mapper.readValue(jsonString, PlayerStatsNBADotCom.class);
+            ArrayList<Object> list =  readValue.resultSets.get(0).rowSet;
+            ArrayList<String> headersList = readValue.resultSets.get(0).headers;
             PlayerResponseContainer playerBackendResponse = playerProfileDataService.findPlayerByPlayerID(playerID);
+            Map<String, Object> playerStatz = new HashMap<>();
+
+            for(int i = 0; i < headersList.size();i++) {
+                playerStatz.put(headersList.get(i), list.get(0));
+            }
+            
+           // PlayerStatsNBADotComDocument playerStatsNBADotComDocument = new PlayerStatsNBADotComDocument();
+
             PlayerProfileResponse playerProfileClientResponse = new PlayerProfileResponse();
             playerProfileClientResponse.playerProfileResponseType = new ArrayList<>();
             playerProfileClientResponse.playerProfileResponseType.add(new PlayerProfileResponseType());

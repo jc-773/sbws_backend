@@ -1,6 +1,8 @@
 package com.mysql.example.demo.services.backendExternalRequestServices.implementations;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +13,7 @@ import com.mysql.example.demo.responses.GamesByDate;
 import com.mysql.example.demo.responses.PlayerByTeamResponse;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerResponse;
+import com.mysql.example.demo.responses.PlayerStatsNBADotCom;
 import com.mysql.example.demo.responses.mobile.GamesByDateMobileResponse;
 import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
 import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IGamesByDateRequestService;
@@ -51,6 +54,12 @@ public class BackendRequestService implements IBackendRequestService {
     @Override
     public List<GamesByDate> GamesByDate_Get(String date, String key) {
        return (List<GamesByDate>) gamesByDateRequestService.GamesByDateResponse_Get(GamesByDate.class, date, key);
+    }
+
+    @Override
+    public  Map<String, PlayerStatsNBADotCom> PlayerCareerStats() {
+       
+       return ( Map<String, PlayerStatsNBADotCom>) nbaPlayerRequests.PlayerCareerStats(PlayerStatsNBADotCom.class, "null"); 
     }
     
 }
