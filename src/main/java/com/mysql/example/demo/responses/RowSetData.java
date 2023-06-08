@@ -1,19 +1,14 @@
-package com.mysql.example.demo.responses.database;
+package com.mysql.example.demo.responses;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-//@Document("Player_Stats_NBA_Dot_Com")
-public class PlayerStatsNBADotComDocument {
-    //@Id
+public class RowSetData {
     public String GROUP_SET;
     public String GROUP_VALUE;
-    public int TEAM_ID;
+    public double TEAM_ID;
     public String TEAM_ABBREVIATION;
     public String MAX_GAME_DATE;
-    public int GP;
-    public int W;
-    public int L;
+    public double GP;
+    public double W;
+    public double L;
     public double W_PCT;
     public double MIN;
     public double FGM;
@@ -71,5 +66,4 @@ public class PlayerStatsNBADotComDocument {
     public double DD2_RANK;
     public double TD3_RANK;
     public double WNBA_FANTASY_PTS_RANK;
-
 }

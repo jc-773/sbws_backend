@@ -13,5 +13,5 @@ public class PlayerStatsNBADotCom {
     public ParametersNBADotCom parameters;
 
     @JsonProperty("resultSets")
-    public ArrayList<ResultStatsNBADotCom> resultSets;
+    public ArrayList<ResultSets> resultSets;
 }
