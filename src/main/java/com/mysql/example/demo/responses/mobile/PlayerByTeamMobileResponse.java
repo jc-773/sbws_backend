@@ -18,4 +18,7 @@ public class PlayerByTeamMobileResponse {
     @JsonProperty("playerID")
     public int playerID;
 
+    @JsonProperty("teamID")
+    public int teamID;
+
 }

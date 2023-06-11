@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +24,9 @@ public class PlayerProfileDataService implements IPlayerProfileDataLayerService 
 
     @Autowired
     AllPlayersRepository allPlayersRepository;
+
+    @Autowired
+    private MongoTemplate mongo;
 
     @Override
     public void savePlayer(PlayerProfileResponseType playerProfileResponseType) {
@@ -56,6 +60,13 @@ public class PlayerProfileDataService implements IPlayerProfileDataLayerService 
         }
         return null;
     }
+
+    @Override
+    public void saveOverallBasePlayerDashboardFromNBADotCom(Map<String,Object> playerStatsMap) {
+        Map<String, Object> playerStatsMapInstant = new HashMap<>(playerStatsMap);
+        mongo.insert(playerStatsMapInstant, "NBADotComPlayerStats");
+    }
     
 
+    
 }

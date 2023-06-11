@@ -56,8 +56,8 @@ public class PlayerController {
         //    ArrayList<ResultStatsNBADotCom> list = new ArrayList<>();
         //    list.add( readValue.resultSets.get(0));
        // ArrayList<String> resultSetsList = playerStats.get(0).resultSets.get(0).headers;
-          // PlayerProjectionResponse playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, date);
-           return playerService.returnPlayerProfileFromBackend(playerID, null, playerStats);
+          PlayerProjectionResponse playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, date);
+           return playerService.returnPlayerProfileFromBackend(playerID, playerProjectionResponse, playerStats);
           //return null;
         } catch (Exception e) {
            e.printStackTrace();
