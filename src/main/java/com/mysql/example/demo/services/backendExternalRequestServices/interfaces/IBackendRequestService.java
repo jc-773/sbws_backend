@@ -16,5 +16,5 @@ public interface IBackendRequestService {
     public PlayerProjectionResponse PlayerProjection_Get(String key, String playerId, String date);
     public List<PlayerByTeamResponse> PlayerByTeamResponse_Get(String key, String team);
     public List<GamesByDate> GamesByDate_Get( String date, String key);
-    public  Map<String, PlayerStatsNBADotCom> PlayerCareerStats();
+    public  Map<String, PlayerStatsNBADotCom> PlayerCareerStats(String playerID);
 }

@@ -13,7 +13,7 @@ public class PlayerStatsNBADotComClientResponse {
     public double rebounds;
 
     @JsonProperty("assists")
-    public double assists;
+    public Integer assists;
 
     @JsonProperty("steals")
     public double steals;

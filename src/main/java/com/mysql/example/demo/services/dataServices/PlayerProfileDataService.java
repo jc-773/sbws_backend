@@ -62,9 +62,9 @@ public class PlayerProfileDataService implements IPlayerProfileDataLayerService 
     }
 
     @Override
-    public void saveOverallBasePlayerDashboardFromNBADotCom(Map<String,Object> playerStatsMap) {
+    public void saveOverallBasePlayerDashboardFromNBADotCom(Map<String,String> playerStatsMap) {
         Map<String, Object> playerStatsMapInstant = new HashMap<>(playerStatsMap);
-        mongo.insert(playerStatsMapInstant, "NBADotComPlayerStats");
+        mongo.insert(playerStatsMapInstant, "NBADotComPlayerStats_Strings");
     }
     
 

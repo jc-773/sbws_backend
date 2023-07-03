@@ -1,24 +1,17 @@
 package com.mysql.example.demo.controllers.nba;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.HttpMediaTypeNotAcceptableException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
-import com.mysql.example.demo.responses.PlayerResponse;
 import com.mysql.example.demo.responses.PlayerStatsNBADotCom;
-import com.mysql.example.demo.responses.ResultStatsNBADotCom;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
 import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
 import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IPlayerProfileDataLayerService;
@@ -50,7 +43,7 @@ public class PlayerController {
             // List<PlayerResponse> playerResponse =  requests.PlayerInformation_Get(sdToken);
             // playerDataService.savePlayers(playerResponse);
            //String playerID = playerService.getPlayerIdForProjectiions(playerResponse, playerFirstName, playerLastName);
-           Map<String, PlayerStatsNBADotCom> playerStats = requests.PlayerCareerStats();
+           Map<String, PlayerStatsNBADotCom> playerStats = requests.PlayerCareerStats(playerID);
         //    String jsonString = new ObjectMapper().writeValueAsString(playerStats);
         //    PlayerStatsNBADotCom readValue = mapper.readValue(jsonString, PlayerStatsNBADotCom.class);
         //    ArrayList<ResultStatsNBADotCom> list = new ArrayList<>();

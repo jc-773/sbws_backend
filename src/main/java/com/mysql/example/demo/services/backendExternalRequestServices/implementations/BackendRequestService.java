@@ -7,14 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.mysql.example.demo.responses.GamesByDate;
 import com.mysql.example.demo.responses.PlayerByTeamResponse;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerResponse;
 import com.mysql.example.demo.responses.PlayerStatsNBADotCom;
-import com.mysql.example.demo.responses.mobile.GamesByDateMobileResponse;
 import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
 import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IGamesByDateRequestService;
 import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.INBAPlayerRequestService;
@@ -57,9 +55,9 @@ public class BackendRequestService implements IBackendRequestService {
     }
 
     @Override
-    public  Map<String, PlayerStatsNBADotCom> PlayerCareerStats() {
+    public  Map<String, PlayerStatsNBADotCom> PlayerCareerStats(String playerID) {
        
-       return ( Map<String, PlayerStatsNBADotCom>) nbaPlayerRequests.PlayerCareerStats(PlayerStatsNBADotCom.class, "null"); 
+       return ( Map<String, PlayerStatsNBADotCom>) nbaPlayerRequests.PlayerCareerStats(PlayerStatsNBADotCom.class, playerID); 
     }
     
 }
