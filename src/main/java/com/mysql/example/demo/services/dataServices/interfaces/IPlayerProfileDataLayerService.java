@@ -1,4 +1,4 @@
-package com.mysql.example.demo.services.backendExternalRequestServices.interfaces;
+package com.mysql.example.demo.services.dataServices.interfaces;
 
 import java.util.List;
 import java.util.Map;

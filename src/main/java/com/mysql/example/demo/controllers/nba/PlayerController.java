@@ -14,9 +14,9 @@ import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerStatsNBADotCom;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
 import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
-import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IPlayerProfileDataLayerService;
 import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerResponseService;
 import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerService;
+import com.mysql.example.demo.services.dataServices.interfaces.IPlayerProfileDataLayerService;
 
 @RestController
 public class PlayerController {
@@ -26,7 +26,8 @@ public class PlayerController {
     private final IPlayerProfileDataLayerService playerDataService;
 
     @Autowired
-    public PlayerController(IBackendRequestService requests, IPlayerService playerService, IPlayerResponseService responseEntity, IPlayerProfileDataLayerService playerDataService) {
+    public PlayerController(IBackendRequestService requests, IPlayerService playerService, 
+    IPlayerResponseService responseEntity, IPlayerProfileDataLayerService playerDataService) {
         this.requests = requests;
         this.playerService = playerService;
         this.responseEntity = responseEntity;
@@ -38,17 +39,7 @@ public class PlayerController {
     public ResponseEntity<PlayerProfileResponse> getPlayerProfile(@RequestHeader(value = "Ocp-Apim-Subscription-Key") String sdToken, @RequestHeader(value = "X-RapidAPI-Key") String token, 
     @RequestHeader(value = "X-RapidAPI-Host") String host, @RequestHeader String playerID, @RequestHeader(value = "playerFirstName", required = false) String playerFirstName, @RequestHeader(value = "playerLastName", required = false) String playerLastName, @RequestHeader(value = "date", required = false) String date) {
        try {
-        ObjectMapper mapper = new ObjectMapper();
-           //TODO: Make an async background task 
-            // List<PlayerResponse> playerResponse =  requests.PlayerInformation_Get(sdToken);
-            // playerDataService.savePlayers(playerResponse);
-           //String playerID = playerService.getPlayerIdForProjectiions(playerResponse, playerFirstName, playerLastName);
            Map<String, PlayerStatsNBADotCom> playerStats = requests.PlayerCareerStats(playerID);
-        //    String jsonString = new ObjectMapper().writeValueAsString(playerStats);
-        //    PlayerStatsNBADotCom readValue = mapper.readValue(jsonString, PlayerStatsNBADotCom.class);
-        //    ArrayList<ResultStatsNBADotCom> list = new ArrayList<>();
-        //    list.add( readValue.resultSets.get(0));
-       // ArrayList<String> resultSetsList = playerStats.get(0).resultSets.get(0).headers;
           PlayerProjectionResponse playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, date);
            return playerService.returnPlayerProfileFromBackend(playerID, playerProjectionResponse, playerStats);
           //return null;

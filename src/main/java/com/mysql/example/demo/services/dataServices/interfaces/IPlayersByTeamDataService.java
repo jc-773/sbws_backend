@@ -1,4 +1,4 @@
-package com.mysql.example.demo.services.backendExternalRequestServices.interfaces;
+package com.mysql.example.demo.services.dataServices.interfaces;
 
 public interface IPlayersByTeamDataService {
     public void returnCompleteRosterForTeam(String teamID);

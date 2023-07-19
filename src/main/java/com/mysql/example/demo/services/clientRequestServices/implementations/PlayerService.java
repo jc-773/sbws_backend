@@ -24,7 +24,7 @@ import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponseType;
 import com.mysql.example.demo.responses.mobile.PlayerStatsNBADotComClientResponse;
 import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerService;
-import com.mysql.example.demo.services.dataServices.PlayerProfileDataService;
+import com.mysql.example.demo.services.dataServices.implementations.PlayerProfileDataService;
 
 @Service
 public class PlayerService implements IPlayerService {

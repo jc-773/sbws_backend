@@ -23,8 +23,5 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	// @Override
-	// public void run(String... args) throws Exception {
-	// testRepository.save(new Player("Stephen"));
-	// }
+	
 }
