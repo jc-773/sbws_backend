@@ -14,4 +14,5 @@ public interface IPlayerProfileDataLayerService {
     public PlayerResponseContainer findPlayerByPlayerID(String playerID);
     public void saveOverallBasePlayerDashboardFromNBADotCom(Map<String, String> playerStatsMap);
     public void savePlayersByTeam(List<PlayerByTeamMobileResponse> playerResponse);
+    public void deletePlayerByTeamCollectionForNewInstances();
 }

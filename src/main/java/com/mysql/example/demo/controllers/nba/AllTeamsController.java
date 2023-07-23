@@ -30,10 +30,11 @@ public class AllTeamsController {
         this.playerService = playerService;
     }
 
-    @Scheduled(cron = "0 0 * * * *")
+    //@Scheduled(cron = "0 0 * * * *")
+    //@Scheduled(fixedRate = 5000)
     public void getAllPlayersByTeam() {
         List<String> listOfTeams = getAllActiveNBATeams();
-       
+        playerService.deletePlayerByTeamCollectionForNewInstances();
         for(int i = 0; i < listOfTeams.size(); i++) {
             List<PlayerByTeamResponse> playerByTeamList = requests.PlayerByTeamResponse_Get(ApplicationConstants.OcpAminSubscriptionKey, listOfTeams.get(i));
             playerService.storeListOfPlayersOnTeam(playerByTeamList);
