@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
+import com.mysql.example.demo.controllers.nba.AllTeamsController;
+
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 //@ComponentScan("com.mysql.example.demo")
 public class DemoApplication {

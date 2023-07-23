@@ -9,10 +9,12 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysql.example.demo.repositories.AllPlayersOnAllTeamsRepository;
 import com.mysql.example.demo.repositories.AllPlayersRepository;
 import com.mysql.example.demo.repositories.PlayerProfileRepository;
 import com.mysql.example.demo.responses.PlayerResponse;
 import com.mysql.example.demo.responses.containers.PlayerResponseContainer;
+import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponseType;
 import com.mysql.example.demo.services.dataServices.interfaces.IPlayerProfileDataLayerService;
 
@@ -24,6 +26,9 @@ public class PlayerProfileDataService implements IPlayerProfileDataLayerService 
 
     @Autowired
     AllPlayersRepository allPlayersRepository;
+
+    @Autowired
+    AllPlayersOnAllTeamsRepository allPlayersOnAllTeamsRepository;
 
     @Autowired
     private MongoTemplate mongo;
@@ -65,6 +70,13 @@ public class PlayerProfileDataService implements IPlayerProfileDataLayerService 
     public void saveOverallBasePlayerDashboardFromNBADotCom(Map<String,String> playerStatsMap) {
         Map<String, Object> playerStatsMapInstant = new HashMap<>(playerStatsMap);
         mongo.insert(playerStatsMapInstant, "NBADotComPlayerStats_Strings");
+    }
+
+    @Override
+    public void savePlayersByTeam(List<PlayerByTeamMobileResponse> playerResponse) {
+        for(PlayerByTeamMobileResponse p : playerResponse) {
+                   allPlayersOnAllTeamsRepository.save(p);
+        }
     }
     
 

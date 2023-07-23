@@ -40,9 +40,8 @@ public class PlayerController {
     @RequestHeader(value = "X-RapidAPI-Host") String host, @RequestHeader String playerID, @RequestHeader(value = "playerFirstName", required = false) String playerFirstName, @RequestHeader(value = "playerLastName", required = false) String playerLastName, @RequestHeader(value = "date", required = false) String date) {
        try {
            Map<String, PlayerStatsNBADotCom> playerStats = requests.PlayerCareerStats(playerID);
-          PlayerProjectionResponse playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, date);
-           return playerService.returnPlayerProfileFromBackend(playerID, playerProjectionResponse, playerStats);
-          //return null;
+           Map<String,PlayerProjectionResponse> playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, date);
+          return playerService.returnPlayerProfileFromBackend(playerID, playerProjectionResponse, playerStats);
         } catch (Exception e) {
            e.printStackTrace();
        }
