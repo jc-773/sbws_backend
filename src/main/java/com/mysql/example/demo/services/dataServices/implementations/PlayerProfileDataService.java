@@ -79,6 +79,8 @@ public class PlayerProfileDataService implements IPlayerProfileDataLayerService 
         }
     }
     
-
-    
+    @Override
+    public void deletePlayerByTeamCollectionForNewInstances() {
+                   allPlayersOnAllTeamsRepository.deleteAll();
+    }
 }

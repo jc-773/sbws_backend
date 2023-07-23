@@ -6,21 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.example.demo.constants.ApplicationConstants;
 import com.mysql.example.demo.responses.AllTeamsResponse;
 import com.mysql.example.demo.responses.PlayerByTeamResponse;
-import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.containers.AllTeamsContainer;
-import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
 import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
 import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerService;
 
 
-@RestController
+@Component
 public class AllTeamsController {
     
     private final IBackendRequestService requests;
@@ -32,10 +30,11 @@ public class AllTeamsController {
         this.playerService = playerService;
     }
 
-    @RequestMapping(value = "/nba/allTeams")
+    //@Scheduled(cron = "0 0 * * * *")
+    //@Scheduled(fixedRate = 5000)
     public void getAllPlayersByTeam() {
         List<String> listOfTeams = getAllActiveNBATeams();
-       
+        playerService.deletePlayerByTeamCollectionForNewInstances();
         for(int i = 0; i < listOfTeams.size(); i++) {
             List<PlayerByTeamResponse> playerByTeamList = requests.PlayerByTeamResponse_Get(ApplicationConstants.OcpAminSubscriptionKey, listOfTeams.get(i));
             playerService.storeListOfPlayersOnTeam(playerByTeamList);

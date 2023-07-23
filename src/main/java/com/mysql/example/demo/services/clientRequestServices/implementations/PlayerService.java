@@ -90,6 +90,10 @@ public class PlayerService implements IPlayerService {
         }
     }
 
+    @Override
+    public void deletePlayerByTeamCollectionForNewInstances() {
+        playerProfileDataService.deletePlayerByTeamCollectionForNewInstances();
+    }
 
     @Override
     public ResponseEntity<PlayerProfileResponse> returnPlayerProfileFromBackend(String playerID,
