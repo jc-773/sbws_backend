@@ -10,12 +10,8 @@ import com.mysql.example.demo.services.backendExternalRequestServices.interfaces
 @Service
 public class AllNBATeamRequestService implements IAllNBATeamsRequestService {
 
-    private IRestTemplateService requestTemplateService;
-
     @Autowired
-    public AllNBATeamRequestService(IRestTemplateService requestTemplateService) {
-        this.requestTemplateService = requestTemplateService;
-    } 
+    IRestTemplateService requestTemplateService;
 
     @Override
     public <T> T AllTeams_Get(Class<T> clazz) {

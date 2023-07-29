@@ -18,7 +18,7 @@ import com.mysql.example.demo.services.clientRequestServices.interfaces.IGamesBy
 @Service
 public class GamesByDateClientService implements IGamesByDateClientService{
 
-    @Override
+    @Override //Games By Date Controller
     public ResponseEntity<List<GamesByDateMobileResponse>> returnGamesByDate(List<GamesByDate> gamesByDateResponse) {
         try {
             Map<String, List<GamesByDate>> gamesByDateMap = new HashMap<>();

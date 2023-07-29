@@ -10,12 +10,8 @@ import com.mysql.example.demo.services.backendExternalRequestServices.interfaces
 @Service
 public class GamesByDateRequestService implements IGamesByDateRequestService{
 
-    private IRestTemplateService requestTemplateService;
-
     @Autowired
-    public GamesByDateRequestService(IRestTemplateService requestTemplateService) {
-        this.requestTemplateService = requestTemplateService;
-    }    
+    private IRestTemplateService requestTemplateService;
 
     @Override
     public <T> T GamesByDateResponse_Get(Class<T> clazz, String date, String key) {
