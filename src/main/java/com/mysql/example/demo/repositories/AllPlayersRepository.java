@@ -10,4 +10,6 @@ import com.mysql.example.demo.responses.containers.PlayerResponseContainer;
 public interface AllPlayersRepository extends MongoRepository<PlayerResponseContainer, String>{
     @Query("{playerID:'?0'}")
     PlayerResponseContainer findPlayerByPlayerId(String playerID);
+
+    
 }

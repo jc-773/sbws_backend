@@ -144,9 +144,6 @@ public class PlayerService implements IPlayerService {
             //uses the data service to find player by playerID in the mongo database
             PlayerResponseContainer playerBackendResponse = playerProfileDataService.findPlayerByPlayerID(playerID);
             PlayerProfileResponse playerProfileResponse = buildPlayerProfileBasicInformation(playerBackendResponse, playerProjectionResponseReadValue);
-            // if(playerProfileResponse != null && playerProfileResponse.playerProfileResponseType != null) {
-            //     playerProfileDataService.savePlayer(playerProfileResponse.playerProfileResponseType.get(0));
-            // }
 
             return new ResponseEntity<PlayerProfileResponse>(playerProfileResponse, HttpStatus.OK);
         } catch (Exception e) {
@@ -189,16 +186,16 @@ public class PlayerService implements IPlayerService {
     }
 
      @Override //NBA.com Player Stats Dashboard Task 
-    public void saveOverallBasePlayerDashboardFromNBADotCom(String playerID, Map<String, PlayerStatsNBADotCom> playerStat) {
+    public void saveOverallBasePlayerDashboardFromNBADotCom(Integer playerID, Map<String, PlayerStatsNBADotCom> playerStat) {
         try {
 
             // Query by playerID and store into a response object
             // Once complete response is stored in an object, flatten to a client response
             // and return it here
             Map<String, Object> overallBasePlayerDashboard_NBADotCom_Map = processJsonForOverallBasePlayerDashboardMap(
-                    playerStat, playerID);
+                    playerStat, playerID.toString());
 
-            ArrayList<String> listOfNBADotComBashboardStats = new ArrayList<>();
+            
             Map<String, String> newMap = new HashMap<String, String>();
             for (Map.Entry<String, Object> entry : overallBasePlayerDashboard_NBADotCom_Map.entrySet()) {
                 if (entry.getValue() instanceof Object) {
@@ -206,6 +203,14 @@ public class PlayerService implements IPlayerService {
                     newMap.put(entry.getKey(), (String) entry.getValue().toString());
                 }
             }
+
+            //Find player firstName and lastName based on Player ID 
+            PlayerByTeamMobileResponse playerBackendResponse = playerProfileDataService.findPlayerByNBADotComPlayerId(playerID);
+            if(playerBackendResponse != null) {
+                newMap.put("firstName", playerBackendResponse.firstName);
+                newMap.put("lastName", playerBackendResponse.lastName);
+            }
+            
             playerProfileDataService.saveOverallBasePlayerDashboardFromNBADotCom(newMap);
         } catch (Exception e) {
             e.printStackTrace();
@@ -220,6 +225,11 @@ public class PlayerService implements IPlayerService {
        e.printStackTrace();
        }
        return null;
+    }
+
+    @Override
+    public void dropCollection(String collectionName) {
+       playerProfileDataService.dropCollection(collectionName);
     }
 
    

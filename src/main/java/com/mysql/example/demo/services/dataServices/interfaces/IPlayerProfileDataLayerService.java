@@ -12,8 +12,10 @@ public interface IPlayerProfileDataLayerService {
     public void savePlayer(PlayerProfileResponseType playerProfileResponseType);
     public void savePlayers(List<PlayerResponse> playerResponse);
     public PlayerResponseContainer findPlayerByPlayerID(String playerID);
+    public PlayerByTeamMobileResponse findPlayerByNBADotComPlayerId(int nBADotComPlayerId);
     public void saveOverallBasePlayerDashboardFromNBADotCom(Map<String, String> playerStatsMap);
     public void savePlayersByTeam(List<PlayerByTeamMobileResponse> playerResponse);
     public void deletePlayerByTeamCollectionForNewInstances();
+    public void dropCollection(String collectionName);
     public List<Integer> returnAllPlayerIds();
 }

@@ -102,4 +102,19 @@ public class PlayerProfileDataService implements IPlayerProfileDataLayerService 
         }
         return null;
     }
+
+    @Override
+    public PlayerByTeamMobileResponse findPlayerByNBADotComPlayerId(int nBADotComPlayerId) {
+        try {
+            return allPlayersOnAllTeamsRepository.findPlayerByNBADotComPlayerId(nBADotComPlayerId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void dropCollection(String collectionName) {
+       mongo.dropCollection(collectionName);
+    }
 }

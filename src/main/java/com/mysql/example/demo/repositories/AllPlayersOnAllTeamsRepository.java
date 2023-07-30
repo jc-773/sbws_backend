@@ -1,14 +1,12 @@
 package com.mysql.example.demo.repositories;
 
-import java.util.List;
-
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
 
-public interface AllPlayersOnAllTeamsRepository extends MongoRepository<PlayerByTeamMobileResponse, String> {
+public interface AllPlayersOnAllTeamsRepository extends MongoRepository<PlayerByTeamMobileResponse, Integer> {
     
-    @Query("db.playerByTeamMobileResponse.distinct('playerID')")
-    List<String> returnAllPlayerIds();
+    @Query("{nbaDotComPlayerID: ?0}")
+    PlayerByTeamMobileResponse findPlayerByNBADotComPlayerId(int playerID);
 }
