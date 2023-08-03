@@ -1,14 +1,11 @@
 package com.mysql.example.demo.services.backendExternalRequestServices.implementations;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import com.mysql.example.demo.responses.AllTeamsResponse;
 import com.mysql.example.demo.responses.GamesByDate;
 import com.mysql.example.demo.responses.PlayerByTeamResponse;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
@@ -22,17 +19,15 @@ import com.mysql.example.demo.services.backendExternalRequestServices.interfaces
 
 @Service
 public class BackendRequestService implements IBackendRequestService {
-
-    private final INBAPlayerRequestService nbaPlayerRequests;
-    private final IGamesByDateRequestService gamesByDateRequestService;
-    private final IAllNBATeamsRequestService allNBAteamsRequestService;
+    
+    @Autowired
+    INBAPlayerRequestService nbaPlayerRequests;
 
     @Autowired
-    public BackendRequestService(INBAPlayerRequestService nbaPlayerRequests, IGamesByDateRequestService gamesByDateRequestService, IAllNBATeamsRequestService allNBAteamsRequestService) {
-        this.nbaPlayerRequests = nbaPlayerRequests;
-        this.gamesByDateRequestService = gamesByDateRequestService;
-        this.allNBAteamsRequestService = allNBAteamsRequestService;
-    }
+    IGamesByDateRequestService gamesByDateRequestService;
+
+    @Autowired
+    IAllNBATeamsRequestService allNBAteamsRequestService;
 
     // Player Services
     @Override

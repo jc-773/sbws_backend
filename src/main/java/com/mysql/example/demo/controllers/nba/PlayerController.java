@@ -9,12 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerStatsNBADotCom;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
 import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
-import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerResponseService;
 import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerService;
 import com.mysql.example.demo.services.dataServices.interfaces.IPlayerProfileDataLayerService;
 
@@ -22,15 +20,13 @@ import com.mysql.example.demo.services.dataServices.interfaces.IPlayerProfileDat
 public class PlayerController {
     private final IBackendRequestService requests;
     private final IPlayerService playerService;
-    private final IPlayerResponseService responseEntity;
     private final IPlayerProfileDataLayerService playerDataService;
 
     @Autowired
     public PlayerController(IBackendRequestService requests, IPlayerService playerService, 
-    IPlayerResponseService responseEntity, IPlayerProfileDataLayerService playerDataService) {
+     IPlayerProfileDataLayerService playerDataService) {
         this.requests = requests;
         this.playerService = playerService;
-        this.responseEntity = responseEntity;
         this.playerDataService = playerDataService;
     }
 

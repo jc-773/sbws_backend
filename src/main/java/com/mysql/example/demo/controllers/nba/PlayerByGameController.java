@@ -1,34 +1,28 @@
 package com.mysql.example.demo.controllers.nba;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mysql.example.demo.responses.PlayerByTeamResponse;
-import com.mysql.example.demo.responses.PlayerStatsNBADotCom;
 import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
 import com.mysql.example.demo.services.backendExternalRequestServices.interfaces.IBackendRequestService;
-import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerResponseService;
 import com.mysql.example.demo.services.clientRequestServices.interfaces.IPlayerService;
 
 @RestController
 public class PlayerByGameController {
     private final IBackendRequestService requests;
     private final IPlayerService playerService;
-    private final IPlayerResponseService responseEntity;
 
     @Autowired
-    public PlayerByGameController(IBackendRequestService requests, IPlayerService playerService, IPlayerResponseService responseEntity) {
+    public PlayerByGameController(IBackendRequestService requests, IPlayerService playerService) {
         this.requests = requests;
         this.playerService = playerService;
-        this.responseEntity = responseEntity;
     }
 
 

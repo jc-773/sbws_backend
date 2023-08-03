@@ -29,14 +29,10 @@ import com.mysql.example.demo.services.backendExternalRequestServices.interfaces
 public class RestTemplateService implements IRestTemplateService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestTemplateService.class);
+    
     @Autowired
     private RestTemplate restTemplate;
     
-   @Autowired
-    public RestTemplateService(RestTemplate restTemplate) {
-       this.restTemplate = restTemplate;
-    }
-
     @Override
     public <PlayerStatsNBADotCom> PlayerStatsNBADotCom getForObjectResponse(Class<PlayerStatsNBADotCom> clazz, String url, Hashtable<String, String> customHeaders) {
         try {

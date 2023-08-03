@@ -1,11 +1,13 @@
 package com.mysql.example.demo.services.dataServices.implementations;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +22,7 @@ import com.mysql.example.demo.services.dataServices.interfaces.IPlayerProfileDat
 
 @Service
 public class PlayerProfileDataService implements IPlayerProfileDataLayerService {
-  
+
     @Autowired
     PlayerProfileRepository playerProfileRepository;
 
@@ -47,7 +49,7 @@ public class PlayerProfileDataService implements IPlayerProfileDataLayerService 
             ObjectMapper mapper = new ObjectMapper();
             PlayerResponse readValue = mapper.readValue(jsonString, PlayerResponse.class);
 
-            for(PlayerResponseContainer p : readValue.response) {
+            for (PlayerResponseContainer p : readValue.response) {
                 allPlayersRepository.save(p);
             }
         } catch (Exception e) {
@@ -67,20 +69,52 @@ public class PlayerProfileDataService implements IPlayerProfileDataLayerService 
     }
 
     @Override
-    public void saveOverallBasePlayerDashboardFromNBADotCom(Map<String,String> playerStatsMap) {
+    public void saveOverallBasePlayerDashboardFromNBADotCom(Map<String, String> playerStatsMap) {
         Map<String, Object> playerStatsMapInstant = new HashMap<>(playerStatsMap);
-        mongo.insert(playerStatsMapInstant, "NBADotComPlayerStats_Strings");
+        mongo.insert(playerStatsMapInstant, "NBADotComPlayerStats_Task");
     }
 
     @Override
     public void savePlayersByTeam(List<PlayerByTeamMobileResponse> playerResponse) {
-        for(PlayerByTeamMobileResponse p : playerResponse) {
-                   allPlayersOnAllTeamsRepository.save(p);
+        for (PlayerByTeamMobileResponse p : playerResponse) {
+            allPlayersOnAllTeamsRepository.save(p);
         }
     }
-    
+
     @Override
     public void deletePlayerByTeamCollectionForNewInstances() {
-                   allPlayersOnAllTeamsRepository.deleteAll();
+        allPlayersOnAllTeamsRepository.deleteAll();
+    }
+
+    @Override
+    public List<Integer> returnAllPlayerIds() {
+        try {
+            Query query = new Query();
+            query.fields().include("nbaDotComPlayerID");
+            List<PlayerByTeamMobileResponse> listOfPlayers = mongo.find(query, PlayerByTeamMobileResponse.class);
+            List<Integer> listOfPlayerIDs = new ArrayList<>();
+            for(PlayerByTeamMobileResponse player : listOfPlayers) {
+                listOfPlayerIDs.add(player.nbaDotComPlayerID);
+            }
+            return listOfPlayerIDs;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public PlayerByTeamMobileResponse findPlayerByNBADotComPlayerId(int nBADotComPlayerId) {
+        try {
+            return allPlayersOnAllTeamsRepository.findPlayerByNBADotComPlayerId(nBADotComPlayerId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void dropCollection(String collectionName) {
+       mongo.dropCollection(collectionName);
     }
 }

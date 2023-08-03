@@ -10,14 +10,14 @@ import com.mysql.example.demo.responses.PlayerProjectionResponse;
 import com.mysql.example.demo.responses.PlayerStatsNBADotCom;
 import com.mysql.example.demo.responses.mobile.PlayerByTeamMobileResponse;
 import com.mysql.example.demo.responses.mobile.PlayerProfileResponse;
-import com.mysql.example.demo.responses.mobile.PlayerStatsNBADotComClientResponse;
 
 public interface IPlayerService {
     public ResponseEntity<PlayerProfileResponse> returnPlayerProfileFromBackend(String playerID,  Map<String, PlayerProjectionResponse> playerProjectionResponse, Map<String, PlayerStatsNBADotCom> playerStats );
     public ResponseEntity<List<PlayerByTeamMobileResponse>> returnPlayerRosterByTeam(List<PlayerByTeamResponse> roster); 
     public void storeListOfPlayersOnTeam(List<PlayerByTeamResponse> roster);  
-    public void deletePlayerByTeamCollectionForNewInstances();
-    public ResponseEntity<PlayerStatsNBADotComClientResponse> returnPlayerStatsDashboardFromNBADotCom(String playerID,  Map<String, PlayerStatsNBADotCom> playerStat);
+    public List<Integer> returnAllPlayerIds();
+    public void saveOverallBasePlayerDashboardFromNBADotCom(Integer playerID, Map<String, PlayerStatsNBADotCom> playerStat);
+    public void dropCollection(String collectionName);
     //public ResponseEntity<PlayerProfileResponse> returnPlayerProfile(List<PlayerResponse> playerResponse, String playerFirstName, String playerLastName, PlayerProjectionResponse playerProjectionResponse);
     //public String getPlayerIdForProjectiions(List<PlayerResponse> playerResponse,  String playerFirstName, String playerLastName);
 
