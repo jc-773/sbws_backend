@@ -122,6 +122,9 @@ public class PlayerService implements IPlayerService {
                 playerByTeamMobileResponse.position = player.position;
                 playerByTeamMobileResponse.status = player.status;
                 playerByTeamMobileResponse.playerID = player.playerID;
+                playerByTeamMobileResponse.draftKingsPlayerID = player.draftKingsPlayerID;
+                playerByTeamMobileResponse.fanDuelPlayerID = player.fanDuelPlayerID;
+                playerByTeamMobileResponse.nbaDotComPlayerID = player.nbaDotComPlayerID;
                 playerByTeamMobileResponse.teamID = player.teamID;
                 playersByTeamList.add(playerByTeamMobileResponse);
             }
