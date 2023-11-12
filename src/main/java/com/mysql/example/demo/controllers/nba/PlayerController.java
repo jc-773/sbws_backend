@@ -33,7 +33,7 @@ public class PlayerController {
 
     @RequestMapping(value = "/nba/players", method=RequestMethod.GET)
     public ResponseEntity<PlayerProfileResponse> getPlayerProfile(@RequestHeader(value = "Ocp-Apim-Subscription-Key") String sdToken, @RequestHeader(value = "X-RapidAPI-Key") String token, 
-    @RequestHeader(value = "X-RapidAPI-Host") String host, @RequestHeader String playerID, @RequestHeader(value = "playerFirstName", required = false) String playerFirstName, @RequestHeader(value = "playerLastName", required = false) String playerLastName, @RequestHeader(value = "date", required = false) String date) {
+    @RequestHeader(value = "X-RapidAPI-Host", required = true) String host, @RequestHeader String playerID, @RequestHeader(value = "playerFirstName", required = false) String playerFirstName, @RequestHeader(value = "playerLastName", required = false) String playerLastName, @RequestHeader(value = "date", required = false) String date) {
        try {
            Map<String, PlayerStatsNBADotCom> playerStats = requests.PlayerCareerStats(playerID);
            Map<String,PlayerProjectionResponse> playerProjectionResponse =  requests.PlayerProjection_Get(sdToken, playerID, date);
