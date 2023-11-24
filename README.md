@@ -7,7 +7,7 @@ With a key, you can clone this repo, obtain the necessary maven dependencies, ru
 
 
 To run the server and standup the API's navigate to the @SpringBootApplication application class:
-src > main > java > com > mysql > example > demo > DemoApplication.java
+src > main > java > com > project > sbws > backend > DemoApplication.java
 
 
 APIs: (A swagger doc is coming soon... I Promise)
