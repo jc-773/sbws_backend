@@ -38,11 +38,21 @@ public class BackendRequestService implements IBackendRequestService {
     }
 
     @Override
+    @Deprecated
     public  Map<String, PlayerProjectionResponse> PlayerProjection_Get(String key, String playerId, String date) {
        
-        return ( Map<String, PlayerProjectionResponse>) nbaPlayerRequests.PlayerProjection_Get(PlayerProjectionResponse.class, key,
+        return ( Map<String, PlayerProjectionResponse>) nbaPlayerRequests.PlayerProjection_Get(PlayerProjectionResponse.class,
         playerId, date);
     }
+
+    @Override
+    public  List< PlayerProjectionResponse> PlayerProjectionByDate_Get(String key,String date) {
+       
+        return ( List<PlayerProjectionResponse>) nbaPlayerRequests.PlayerProjectionByDate_Get(PlayerProjectionResponse.class, key,
+         date);
+    }
+
+    //
 
     @Override
     public List<PlayerByTeamResponse> PlayerByTeamResponse_Get(String key, String team) {

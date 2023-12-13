@@ -16,9 +16,10 @@ import com.project.sbws.backend.responses.containers.AllTeamsContainer;
 
 public interface IBackendRequestService {
     public List<PlayerResponse> PlayerInformation_Get(@RequestHeader String key);
-    public  Map<String, PlayerProjectionResponse> PlayerProjection_Get(String key, String playerId, String date);
+    public Map<String, PlayerProjectionResponse> PlayerProjection_Get(String key, String playerId, String date);
+    public List< PlayerProjectionResponse> PlayerProjectionByDate_Get(String key, String date);
     public List<PlayerByTeamResponse> PlayerByTeamResponse_Get(String key, String team);
     public List<GamesByDate> GamesByDate_Get( String date, String key);
-    public  Map<String, PlayerStatsNBADotCom> PlayerCareerStats(String playerID);
+    public Map<String, PlayerStatsNBADotCom> PlayerCareerStats(String playerID);
     public List<AllTeamsContainer> AllNBATeams_Get();
 }

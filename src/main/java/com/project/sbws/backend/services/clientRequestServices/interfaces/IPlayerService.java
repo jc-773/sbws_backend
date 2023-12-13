@@ -13,7 +13,7 @@ import com.project.sbws.backend.responses.mobile.PlayerProfileResponse;
 
 
 public interface IPlayerService {
-    public ResponseEntity<PlayerProfileResponse> returnPlayerProfileFromBackend(String playerID,  Map<String, PlayerProjectionResponse> playerProjectionResponse, Map<String, PlayerStatsNBADotCom> playerStats );
+    public ResponseEntity<PlayerProfileResponse> returnPlayerProfileFromBackend(String playerID,  List<PlayerProjectionResponse> playerProjectionResponse, Map<String, PlayerStatsNBADotCom> playerStats );
     public ResponseEntity<List<PlayerByTeamMobileResponse>> returnPlayerRosterByTeam(List<PlayerByTeamResponse> roster); 
     public void storeListOfPlayersOnTeam(List<PlayerByTeamResponse> roster);  
     public List<Integer> returnAllPlayerIds();

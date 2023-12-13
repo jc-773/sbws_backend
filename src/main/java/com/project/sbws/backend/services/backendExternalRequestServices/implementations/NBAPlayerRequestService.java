@@ -27,12 +27,19 @@ public class NBAPlayerRequestService implements INBAPlayerRequestService {
     }
 
     @Override
-    public <T> T PlayerProjection_Get(Class<PlayerProjectionResponse> clazz, String token, String playerId,
+    @Deprecated
+    public <T> T PlayerProjection_Get(Class<PlayerProjectionResponse> clazz, String playerId,
             String date) {
                 String url = "https://api.sportsdata.io/v3/nba/projections/json/PlayerGameProjectionStatsByPlayer/" + date + "/" + playerId;
                 Hashtable<String, String> customHeaders = new Hashtable<String, String>();
                 customHeaders.put("Ocp-Apim-Subscription-Key", ApplicationConstants.OcpAminSubscriptionKey);
                 return (T) requestTemplateService.getForObjectResponseType(clazz, url, customHeaders);
+    }
+
+    @Override
+    public <T> T PlayerProjectionByDate_Get(Class<PlayerProjectionResponse> clazz, String key, String date) {
+                String url = "https://api.sportsdata.io/v3/nba/projections/json/PlayerGameProjectionStatsByDate/" + date + "?key=" + key;
+                return (T) requestTemplateService.getForObjectResponseType(clazz, url, null);
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.project.sbws.backend.responses.PlayerByTeamResponse;
 import com.project.sbws.backend.responses.PlayerProjectionResponse;
 import com.project.sbws.backend.responses.PlayerStatsNBADotCom;
 import com.project.sbws.backend.responses.containers.PlayerByTeamContainer;
+import com.project.sbws.backend.responses.containers.PlayerProjectionContainer;
 import com.project.sbws.backend.responses.containers.PlayerResponseContainer;
 import com.project.sbws.backend.responses.mobile.PlayerByTeamMobileResponse;
 import com.project.sbws.backend.responses.mobile.PlayerProfileResponse;
@@ -88,12 +89,14 @@ public class PlayerService implements IPlayerService {
         return null;
     }
 
-    private PlayerProjectionResponse flattenPlayerProjectionMap(Map<String, PlayerProjectionResponse> map) {
+    private PlayerProjectionResponse flattenPlayerProjectionByGameMap(List<PlayerProjectionResponse> map) {
         try {
+           Map<String, List<PlayerProjectionResponse>> playerProjectionResponse = new HashMap<>();
+            playerProjectionResponse.put("key", map);
+            String jsonString = new ObjectMapper().writeValueAsString(playerProjectionResponse);
             ObjectMapper mapper = new ObjectMapper();
-            String playerProjectionJsonString = new ObjectMapper().writeValueAsString(map);
-            return mapper.readValue(playerProjectionJsonString,
-                    PlayerProjectionResponse.class);
+            PlayerProjectionContainer readValue = mapper.readValue(jsonString, PlayerProjectionContainer.class);
+            System.out.println("Read Value: " + readValue);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -139,10 +142,11 @@ public class PlayerService implements IPlayerService {
 
     @Override //Player Controller 
     public ResponseEntity<PlayerProfileResponse> returnPlayerProfileFromBackend(String playerID,
-            Map<String, PlayerProjectionResponse> playerProjectionResponse,
+            List<PlayerProjectionResponse> playerProjectionResponse,
             Map<String, PlayerStatsNBADotCom> playerStats) {
         try {
-            PlayerProjectionResponse playerProjectionResponseReadValue = flattenPlayerProjectionMap(
+            
+            PlayerProjectionResponse playerProjectionResponseReadValue = flattenPlayerProjectionByGameMap(
                     playerProjectionResponse);
 
             //uses the data service to find player by playerID in the mongo database
