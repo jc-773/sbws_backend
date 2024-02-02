@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,39 +25,35 @@ import com.project.sbws.backend.responses.mobile.PlayerProfileResponse;
 import com.project.sbws.backend.responses.mobile.PlayerProfileResponseType;
 import com.project.sbws.backend.services.clientRequestServices.interfaces.IPlayerService;
 import com.project.sbws.backend.services.dataServices.implementations.PlayerProfileDataService;
+import com.project.sbws.backend.utilities.AppUtils;
 
 @Service
 public class PlayerService implements IPlayerService {
 
-    @Autowired
-    PlayerProfileDataService playerProfileDataService;
+    // @Autowired
+    // PlayerProfileDataService playerProfileDataService;
 
     /* Utilities */
 
-    private static PlayerProfileResponse buildPlayerProfileBasicInformation(PlayerResponseContainer playerBackendResponse, PlayerProjectionResponse playerProjectionResponseReadValue) {
-        if (playerBackendResponse != null) {
-            PlayerProfileResponse playerProfileClientResponse = new PlayerProfileResponse();
-            playerProfileClientResponse.playerProfileResponseType = new ArrayList<>();
-            playerProfileClientResponse.playerProfileResponseType.add(new PlayerProfileResponseType());
-            playerProfileClientResponse.playerProfileResponseType.get(0).playerID = playerBackendResponse.playerID;
-            playerProfileClientResponse.playerProfileResponseType.get(0).draftKindsPlayerID = playerBackendResponse.draftKingsPlayerID;
-            playerProfileClientResponse.playerProfileResponseType.get(0).fanDuelPlayerID = playerBackendResponse.fanDuelPlayerID;
-            playerProfileClientResponse.playerProfileResponseType.get(0).nbaDotComPlayerID = playerBackendResponse.nbaDotComPlayerID;
-            playerProfileClientResponse.playerProfileResponseType.get(0).rotoWirePlayerID = playerBackendResponse.rotoWirePlayerID;
-            playerProfileClientResponse.playerProfileResponseType.get(0).teamID = playerBackendResponse.teamID;
-            playerProfileClientResponse.playerProfileResponseType.get(0).firstName = playerBackendResponse.firstName;
-            playerProfileClientResponse.playerProfileResponseType.get(0).lastName = playerBackendResponse.lastName;
-            playerProfileClientResponse.playerProfileResponseType.get(0).position = playerBackendResponse.position;
-
-            if(playerProjectionResponseReadValue != null) {
-                playerProfileClientResponse.playerProfileResponseType.get(0).projectedPoints = playerProjectionResponseReadValue.points;
-                playerProfileClientResponse.playerProfileResponseType.get(0).projectedAssists = playerProjectionResponseReadValue.assists;
-                playerProfileClientResponse.playerProfileResponseType.get(0).projectedRebounds = playerProjectionResponseReadValue.rebounds;
-                playerProfileClientResponse.playerProfileResponseType.get(0).projectedThreesMade = playerProjectionResponseReadValue.threePointersMade;
-            }
-            return playerProfileClientResponse;
+    public static PlayerProfileResponse buildPlayerProfileBasicInformation(PlayerProjectionResponse playerProjectionResponse) {
+        PlayerProfileResponse playerProfileClientResponse = null;
+        if (playerProjectionResponse != null) {
+            playerProfileClientResponse = new PlayerProfileResponse();
+            playerProfileClientResponse.playerProfileResponseType = new PlayerProfileResponseType();
+            playerProfileClientResponse.playerProfileResponseType.name = playerProjectionResponse.name;
+            playerProfileClientResponse.playerProfileResponseType.position = playerProjectionResponse.position;
+            playerProfileClientResponse.playerProfileResponseType.minutes = playerProjectionResponse.minutes;
+            playerProfileClientResponse.playerProfileResponseType.fieldGoalsMade = playerProjectionResponse.fieldGoalsMade;
+            playerProfileClientResponse.playerProfileResponseType.projectedPoints = playerProjectionResponse.points;
+            playerProfileClientResponse.playerProfileResponseType.projectedAssists = playerProjectionResponse.assists;
+            playerProfileClientResponse.playerProfileResponseType.projectedRebounds = playerProjectionResponse.rebounds;
+            playerProfileClientResponse.playerProfileResponseType.projectedThreesMade = playerProjectionResponse.threePointersMade;
+            playerProfileClientResponse.playerProfileResponseType.freeThrowsAttempted = playerProjectionResponse.freeThrowsAttempted;
+            playerProfileClientResponse.playerProfileResponseType.freeThrowsMade = playerProjectionResponse.freeThrowsMade;
+            playerProfileClientResponse.playerProfileResponseType.status = playerProjectionResponse.injuryStatus;
+            
         }
-        return null;
+        return playerProfileClientResponse;
     }
 
     private Map<String, Object> processJsonForOverallBasePlayerDashboardMap(Map<String, PlayerStatsNBADotCom> map,
@@ -89,27 +87,65 @@ public class PlayerService implements IPlayerService {
         return null;
     }
 
-    private PlayerProjectionResponse flattenPlayerProjectionByGameMap(List<PlayerProjectionResponse> map) {
+    private <T> PlayerProjectionContainer flattenPlayerProjectionByDateMap(List<T> map) {
         try {
-           Map<String, List<PlayerProjectionResponse>> playerProjectionResponse = new HashMap<>();
+
+            Map<String, List<T>> playerProjectionResponse = new HashMap<>();
             playerProjectionResponse.put("key", map);
             String jsonString = new ObjectMapper().writeValueAsString(playerProjectionResponse);
             ObjectMapper mapper = new ObjectMapper();
-            PlayerProjectionContainer readValue = mapper.readValue(jsonString, PlayerProjectionContainer.class);
-            System.out.println("Read Value: " + readValue);
+            return mapper.readValue(jsonString, PlayerProjectionContainer.class);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private void deletePlayerByTeamCollectionForNewInstances() {
-        playerProfileDataService.deletePlayerByTeamCollectionForNewInstances();
+    public PlayerProjectionResponse returnPlayerProfileMatchingPlayerID(
+            PlayerProjectionContainer playerProjectionContainer, String playerID) {
+        PlayerProjectionResponse filteredPlayerProjection = null;
+        try {
+            if (!AppUtils.isNullOrEmpty(playerID)) {
+                int parsedPlayerID = AppUtils.parseStringToInt(playerID);
+
+                PlayerProjectionResponse player = playerProjectionContainer.response
+                        .stream().filter(n -> n.playerID == parsedPlayerID).findFirst()
+                        .orElseThrow(() -> new Exception("unable to find player with playerID: " + playerID));
+                filteredPlayerProjection = player;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return filteredPlayerProjection;
     }
 
-    /* Implementations */ 
+    public PlayerProjectionResponse getPlayerForPlayerProjectionByDate(
+            PlayerProjectionContainer playerProjectionContainer, String playerID) {
+        int parsedPlayerID;
+        PlayerProjectionResponse filteredPlayerProjection = null;
 
-    @Override //Players By Game Controller
+        if (playerID != null || !playerID.isEmpty()) {
+            parsedPlayerID = Integer.parseInt(playerID);
+
+            Optional<PlayerProjectionResponse> player = playerProjectionContainer.response
+                    .stream().filter(n -> n.playerID == parsedPlayerID).findFirst();
+
+            if (player.get() != null) {
+                filteredPlayerProjection = player.get();
+
+            }
+        }
+        return filteredPlayerProjection;
+    }
+
+    // private void deletePlayerByTeamCollectionForNewInstances() {
+    // playerProfileDataService.deletePlayerByTeamCollectionForNewInstances();
+    // }
+
+    /* Implementations */
+
+    @Override
     public ResponseEntity<List<PlayerByTeamMobileResponse>> returnPlayerRosterByTeam(
             List<PlayerByTeamResponse> roster) {
         try {
@@ -140,18 +176,14 @@ public class PlayerService implements IPlayerService {
         return null;
     }
 
-    @Override //Player Controller 
+    @Override
     public ResponseEntity<PlayerProfileResponse> returnPlayerProfileFromBackend(String playerID,
             List<PlayerProjectionResponse> playerProjectionResponse,
             Map<String, PlayerStatsNBADotCom> playerStats) {
         try {
-            
-            PlayerProjectionResponse playerProjectionResponseReadValue = flattenPlayerProjectionByGameMap(
-                    playerProjectionResponse);
-
-            //uses the data service to find player by playerID in the mongo database
-            PlayerResponseContainer playerBackendResponse = playerProfileDataService.findPlayerByPlayerID(playerID);
-            PlayerProfileResponse playerProfileResponse = buildPlayerProfileBasicInformation(playerBackendResponse, playerProjectionResponseReadValue);
+            PlayerProjectionContainer playerProjectionContainerUnfiltered = flattenPlayerProjectionByDateMap(playerProjectionResponse);
+            PlayerProjectionResponse playerProjectedResponseFiltered = returnPlayerProfileMatchingPlayerID(playerProjectionContainerUnfiltered, playerID);
+            PlayerProfileResponse playerProfileResponse = buildPlayerProfileBasicInformation(playerProjectedResponseFiltered);
 
             return new ResponseEntity<PlayerProfileResponse>(playerProfileResponse, HttpStatus.OK);
         } catch (Exception e) {
@@ -160,9 +192,9 @@ public class PlayerService implements IPlayerService {
         return null;
     }
 
-    @Override //Players By Team Task 
+    @Override // Players By Team Task
     public void storeListOfPlayersOnTeam(List<PlayerByTeamResponse> roster) {
-       try {
+        try {
             Map<String, List<PlayerByTeamResponse>> playerByTeamResponse = new HashMap<>();
             playerByTeamResponse.put("key", roster);
             String jsonString = new ObjectMapper().writeValueAsString(playerByTeamResponse);
@@ -186,15 +218,16 @@ public class PlayerService implements IPlayerService {
                 playerByTeamMobileResponse.rotoWirePlayerID = player.rotoWirePlayerID;
                 playersByTeamList.add(playerByTeamMobileResponse);
             }
-            deletePlayerByTeamCollectionForNewInstances();
-            playerProfileDataService.savePlayersByTeam(playersByTeamList);
+            // deletePlayerByTeamCollectionForNewInstances();
+            // playerProfileDataService.savePlayersByTeam(playersByTeamList);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-     @Override //NBA.com Player Stats Dashboard Task 
-    public void saveOverallBasePlayerDashboardFromNBADotCom(Integer playerID, Map<String, PlayerStatsNBADotCom> playerStat) {
+    @Override // NBA.com Player Stats Dashboard Task
+    public void saveOverallBasePlayerDashboardFromNBADotCom(Integer playerID,
+            Map<String, PlayerStatsNBADotCom> playerStat) {
         try {
 
             // Query by playerID and store into a response object
@@ -203,7 +236,6 @@ public class PlayerService implements IPlayerService {
             Map<String, Object> overallBasePlayerDashboard_NBADotCom_Map = processJsonForOverallBasePlayerDashboardMap(
                     playerStat, playerID.toString());
 
-            
             Map<String, String> newMap = new HashMap<String, String>();
             for (Map.Entry<String, Object> entry : overallBasePlayerDashboard_NBADotCom_Map.entrySet()) {
                 if (entry.getValue() instanceof Object) {
@@ -212,35 +244,33 @@ public class PlayerService implements IPlayerService {
                 }
             }
 
-            //Find player firstName and lastName based on Player ID 
-            PlayerByTeamMobileResponse playerBackendResponse = playerProfileDataService.findPlayerByNBADotComPlayerId(playerID);
-            if(playerBackendResponse != null) {
-                newMap.put("firstName", playerBackendResponse.firstName);
-                newMap.put("lastName", playerBackendResponse.lastName);
-            }
-            
-            playerProfileDataService.saveOverallBasePlayerDashboardFromNBADotCom(newMap);
+            // Find player firstName and lastName based on Player ID
+            // PlayerByTeamMobileResponse playerBackendResponse = playerProfileDataService
+            // .findPlayerByNBADotComPlayerId(playerID);
+            // if (playerBackendResponse != null) {
+            // newMap.put("firstName", playerBackendResponse.firstName);
+            // newMap.put("lastName", playerBackendResponse.lastName);
+            // }
+
+            // playerProfileDataService.saveOverallBasePlayerDashboardFromNBADotCom(newMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    @Override //NBA.com Player Stats Dashboard Task 
+
+    @Override // NBA.com Player Stats Dashboard Task
     public List<Integer> returnAllPlayerIds() {
-       try {
-        return playerProfileDataService.returnAllPlayerIds();
-       } catch (Exception e) {
-       e.printStackTrace();
-       }
-       return null;
+        try {
+            // return playerProfileDataService.returnAllPlayerIds();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public void dropCollection(String collectionName) {
-       playerProfileDataService.dropCollection(collectionName);
+        // playerProfileDataService.dropCollection(collectionName);
     }
 
-   
-
-    
 }

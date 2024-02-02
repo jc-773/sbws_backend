@@ -21,6 +21,7 @@ import com.project.sbws.backend.services.dataServices.interfaces.IPlayerProfileD
 
 @RestController
 public class PlayerController {
+
     private final IBackendRequestService requests;
     private final IPlayerService playerService;
     private final IPlayerProfileDataLayerService playerDataService;
@@ -36,13 +37,12 @@ public class PlayerController {
 
     @RequestMapping(value = "/nba/players", method=RequestMethod.GET)
     public ResponseEntity<PlayerProfileResponse> getPlayerProfile(
-    
     @RequestHeader(value = "playerID", required = false)String playerID,
     @RequestHeader(value = "date", required = false) String date, 
     @RequestParam(value = "key", required = true) String key) {
        try {
-           //Map<String, PlayerStatsNBADotCom> playerStats = requests.PlayerCareerStats(playerID);
            List<PlayerProjectionResponse> playerProjectionResponse =  requests.PlayerProjectionByDate_Get(key, date);
+           //separate call for database services?
           return playerService.returnPlayerProfileFromBackend(playerID, playerProjectionResponse, null);
         } catch (Exception e) {
            e.printStackTrace();

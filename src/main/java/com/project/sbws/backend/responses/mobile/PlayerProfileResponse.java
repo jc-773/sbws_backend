@@ -6,5 +6,5 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PlayerProfileResponse {
     @JsonProperty("response")
-    public List<PlayerProfileResponseType> playerProfileResponseType;
+    public PlayerProfileResponseType playerProfileResponseType;
 }
