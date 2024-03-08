@@ -102,22 +102,19 @@ public class PlayerService implements IPlayerService {
         return null;
     }
 
-    public PlayerProjectionResponse returnPlayerProfileMatchingPlayerID(
-            PlayerProjectionContainer playerProjectionContainer, String playerID) {
-        PlayerProjectionResponse filteredPlayerProjection = null;
+    public PlayerProjectionResponse returnPlayerProfileMatchingPlayerID(PlayerProjectionContainer playerProjectionContainer, String playerID) {
         try {
             if (!AppUtils.isNullOrEmpty(playerID)) {
                 int parsedPlayerID = AppUtils.parseStringToInt(playerID);
-
                 PlayerProjectionResponse player = playerProjectionContainer.response
-                        .stream().filter(n -> n.playerID == parsedPlayerID).findFirst()
-                        .orElseThrow(() -> new Exception("unable to find player with playerID: " + playerID));
-                filteredPlayerProjection = player;
+                        .stream().filter(n -> n.playerID == parsedPlayerID).findFirst().orElse(null);
+
+                return player;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return filteredPlayerProjection;
+        return null;
     }
 
     public PlayerProjectionResponse getPlayerForPlayerProjectionByDate(
