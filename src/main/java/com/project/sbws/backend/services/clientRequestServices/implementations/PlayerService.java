@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,12 +17,10 @@ import com.project.sbws.backend.responses.PlayerProjectionResponse;
 import com.project.sbws.backend.responses.PlayerStatsNBADotCom;
 import com.project.sbws.backend.responses.containers.PlayerByTeamContainer;
 import com.project.sbws.backend.responses.containers.PlayerProjectionContainer;
-import com.project.sbws.backend.responses.containers.PlayerResponseContainer;
 import com.project.sbws.backend.responses.mobile.PlayerByTeamMobileResponse;
 import com.project.sbws.backend.responses.mobile.PlayerProfileResponse;
 import com.project.sbws.backend.responses.mobile.PlayerProfileResponseType;
 import com.project.sbws.backend.services.clientRequestServices.interfaces.IPlayerService;
-import com.project.sbws.backend.services.dataServices.implementations.PlayerProfileDataService;
 import com.project.sbws.backend.utilities.AppUtils;
 
 @Service
@@ -108,7 +104,7 @@ public class PlayerService implements IPlayerService {
                 int parsedPlayerID = AppUtils.parseStringToInt(playerID);
                 PlayerProjectionResponse player = playerProjectionContainer.response
                         .stream().filter(n -> n.playerID == parsedPlayerID).findFirst().orElse(null);
-
+                
                 return player;
             }
         } catch (Exception e) {
@@ -136,12 +132,9 @@ public class PlayerService implements IPlayerService {
         return filteredPlayerProjection;
     }
 
-    // private void deletePlayerByTeamCollectionForNewInstances() {
-    // playerProfileDataService.deletePlayerByTeamCollectionForNewInstances();
-    // }
+    /* End Utilities */
 
-    /* Implementations */
-
+    /* Implementation Methods */
     @Override
     public ResponseEntity<List<PlayerByTeamMobileResponse>> returnPlayerRosterByTeam(
             List<PlayerByTeamResponse> roster) {
@@ -215,8 +208,6 @@ public class PlayerService implements IPlayerService {
                 playerByTeamMobileResponse.rotoWirePlayerID = player.rotoWirePlayerID;
                 playersByTeamList.add(playerByTeamMobileResponse);
             }
-            // deletePlayerByTeamCollectionForNewInstances();
-            // playerProfileDataService.savePlayersByTeam(playersByTeamList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -240,34 +231,9 @@ public class PlayerService implements IPlayerService {
                     newMap.put(entry.getKey(), (String) entry.getValue().toString());
                 }
             }
-
-            // Find player firstName and lastName based on Player ID
-            // PlayerByTeamMobileResponse playerBackendResponse = playerProfileDataService
-            // .findPlayerByNBADotComPlayerId(playerID);
-            // if (playerBackendResponse != null) {
-            // newMap.put("firstName", playerBackendResponse.firstName);
-            // newMap.put("lastName", playerBackendResponse.lastName);
-            // }
-
-            // playerProfileDataService.saveOverallBasePlayerDashboardFromNBADotCom(newMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    @Override // NBA.com Player Stats Dashboard Task
-    public List<Integer> returnAllPlayerIds() {
-        try {
-            // return playerProfileDataService.returnAllPlayerIds();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public void dropCollection(String collectionName) {
-        // playerProfileDataService.dropCollection(collectionName);
-    }
-
+    /* End Implementation Methods */
 }

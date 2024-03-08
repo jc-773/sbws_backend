@@ -24,18 +24,18 @@ public class NBADotComPlayerStatsDashboardTask {
     }
 
     //@Scheduled(fixedRate = 5000)
-    public void getAllActivePlayerNBADotComStats() {
-        try {
-            List<Integer> listOfPlayerIDs = playerService.returnAllPlayerIds();
-            playerService.dropCollection("NBADotComPlayerStats_Task");
-            for (Integer a : listOfPlayerIDs) {
-                Map<String, PlayerStatsNBADotCom> playerStats = requests.PlayerCareerStats(a.toString());
-                playerService.saveOverallBasePlayerDashboardFromNBADotCom(a, playerStats);
-            }
-            System.out.println("Player saved to collection");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    // public void getAllActivePlayerNBADotComStats() {
+    //     try {
+    //         List<Integer> listOfPlayerIDs = playerService.returnAllPlayerIds();
+    //         playerService.dropCollection("NBADotComPlayerStats_Task");
+    //         for (Integer a : listOfPlayerIDs) {
+    //             Map<String, PlayerStatsNBADotCom> playerStats = requests.PlayerCareerStats(a.toString());
+    //             playerService.saveOverallBasePlayerDashboardFromNBADotCom(a, playerStats);
+    //         }
+    //         System.out.println("Player saved to collection");
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
 
-    }
+    // }
 }

@@ -42,7 +42,6 @@ public class PlayerController {
     @RequestParam(value = "key", required = true) String key) {
        try {
            List<PlayerProjectionResponse> playerProjectionResponse =  requests.PlayerProjectionByDate_Get(key, date);
-           //separate call for database services?
           return playerService.returnPlayerProfileFromBackend(playerID, playerProjectionResponse, null);
         } catch (Exception e) {
            e.printStackTrace();

@@ -22,7 +22,7 @@ public class NBADotComPlayerMatchupStatsAgainstTeam {
         // list of all teams team IDs 
         // make a call for a player ID that loops through all team IDs or something
 
-        List<Integer> listOfPlayerIDs = playerService.returnAllPlayerIds();
+       // List<Integer> listOfPlayerIDs = playerService.returnAllPlayerIds();
         
 
     }
