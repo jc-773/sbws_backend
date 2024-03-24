@@ -69,4 +69,7 @@ public class ParametersNBADotCom {
     @JsonProperty("LastNGames")
     public int lastNGames;
 
+    @JsonProperty("ISTRound")
+    public int istRound;
+
 }

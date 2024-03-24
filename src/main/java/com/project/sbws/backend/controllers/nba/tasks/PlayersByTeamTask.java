@@ -29,7 +29,7 @@ public class PlayersByTeamTask {
         this.playerService = playerService;
     }
 
-    // @Scheduled(cron = "0 0 * * * *")
+    // @Scheduled(  = "0 0 * * * *")
     //@Scheduled(fixedRate = 5000)
     public void getAllPlayersByTeam() {
        

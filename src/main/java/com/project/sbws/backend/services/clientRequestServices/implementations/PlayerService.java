@@ -64,8 +64,8 @@ public class PlayerService implements IPlayerService {
             // refactor to get every year and not just one year (the one year was POC)
 
             if (readValue.resultSets.size() > 0) {
-                ArrayList<Object> rowSetList = readValue.resultSets.get(0).rowSet;
-                ArrayList<String> headersList = readValue.resultSets.get(0).headers;
+                List<List<Object>> rowSetList = readValue.resultSets.get(0).rowSet;
+                List<String> headersList = readValue.resultSets.get(0).headers;
                 for (Object oj : rowSetList) {
                     List<Object> ot = (List<Object>) oj;
                     for (int i = 0; i < ot.size(); i++) {
