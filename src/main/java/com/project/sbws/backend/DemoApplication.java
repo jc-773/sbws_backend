@@ -9,6 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
+import com.project.sbws.backend.services.backendExternalRequestServices.interfaces.IBackendRequestService;
+
 
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 @EnableScheduling
@@ -19,6 +21,8 @@ public class DemoApplication {
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
+
+	
 
 
 
