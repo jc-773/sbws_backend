@@ -1,27 +1,15 @@
 package com.project.sbws.backend.services.clientRequestServices.implementations;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.project.sbws.backend.responses.PlayerByTeamResponse;
-import com.project.sbws.backend.responses.PlayerProjectionResponse;
 import com.project.sbws.backend.responses.PlayerStatsNBADotCom;
-import com.project.sbws.backend.responses.containers.PlayerByTeamContainer;
-import com.project.sbws.backend.responses.containers.PlayerProjectionContainer;
-import com.project.sbws.backend.responses.mobile.PlayerByTeamMobileResponse;
-import com.project.sbws.backend.responses.mobile.PlayerProfileResponse;
-import com.project.sbws.backend.responses.mobile.PlayerProfileResponseType;
 import com.project.sbws.backend.services.clientRequestServices.interfaces.IPlayerService;
-import com.project.sbws.backend.utilities.AppUtils;
 
 @Service
 public class PlayerService implements IPlayerService {
@@ -31,26 +19,7 @@ public class PlayerService implements IPlayerService {
 
     /* Utilities */
 
-    public static PlayerProfileResponse buildPlayerProfileBasicInformation(PlayerProjectionResponse playerProjectionResponse) {
-        PlayerProfileResponse playerProfileClientResponse = null;
-        if (playerProjectionResponse != null) {
-            playerProfileClientResponse = new PlayerProfileResponse();
-            playerProfileClientResponse.playerProfileResponseType = new PlayerProfileResponseType();
-            playerProfileClientResponse.playerProfileResponseType.name = playerProjectionResponse.name;
-            playerProfileClientResponse.playerProfileResponseType.position = playerProjectionResponse.position;
-            playerProfileClientResponse.playerProfileResponseType.minutes = playerProjectionResponse.minutes;
-            playerProfileClientResponse.playerProfileResponseType.fieldGoalsMade = playerProjectionResponse.fieldGoalsMade;
-            playerProfileClientResponse.playerProfileResponseType.projectedPoints = playerProjectionResponse.points;
-            playerProfileClientResponse.playerProfileResponseType.projectedAssists = playerProjectionResponse.assists;
-            playerProfileClientResponse.playerProfileResponseType.projectedRebounds = playerProjectionResponse.rebounds;
-            playerProfileClientResponse.playerProfileResponseType.projectedThreesMade = playerProjectionResponse.threePointersMade;
-            playerProfileClientResponse.playerProfileResponseType.freeThrowsAttempted = playerProjectionResponse.freeThrowsAttempted;
-            playerProfileClientResponse.playerProfileResponseType.freeThrowsMade = playerProjectionResponse.freeThrowsMade;
-            playerProfileClientResponse.playerProfileResponseType.status = playerProjectionResponse.injuryStatus;
-            
-        }
-        return playerProfileClientResponse;
-    }
+   
 
     private Map<String, Object> processJsonForOverallBasePlayerDashboardMap(Map<String, PlayerStatsNBADotCom> map,
             String playerID) {
@@ -83,136 +52,7 @@ public class PlayerService implements IPlayerService {
         return null;
     }
 
-    private <T> PlayerProjectionContainer flattenPlayerProjectionByDateMap(List<T> map) {
-        try {
-
-            Map<String, List<T>> playerProjectionResponse = new HashMap<>();
-            playerProjectionResponse.put("key", map);
-            String jsonString = new ObjectMapper().writeValueAsString(playerProjectionResponse);
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(jsonString, PlayerProjectionContainer.class);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public PlayerProjectionResponse returnPlayerProfileMatchingPlayerID(PlayerProjectionContainer playerProjectionContainer, String playerID) {
-        try {
-            if (!AppUtils.isNullOrEmpty(playerID)) {
-                int parsedPlayerID = AppUtils.parseStringToInt(playerID);
-                PlayerProjectionResponse player = playerProjectionContainer.response
-                        .stream().filter(n -> n.playerID == parsedPlayerID).findFirst().orElse(null);
-                
-                return player;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public PlayerProjectionResponse getPlayerForPlayerProjectionByDate(
-            PlayerProjectionContainer playerProjectionContainer, String playerID) {
-        int parsedPlayerID;
-        PlayerProjectionResponse filteredPlayerProjection = null;
-
-        if (playerID != null || !playerID.isEmpty()) {
-            parsedPlayerID = Integer.parseInt(playerID);
-
-            Optional<PlayerProjectionResponse> player = playerProjectionContainer.response
-                    .stream().filter(n -> n.playerID == parsedPlayerID).findFirst();
-
-            if (player.get() != null) {
-                filteredPlayerProjection = player.get();
-
-            }
-        }
-        return filteredPlayerProjection;
-    }
-
-    /* End Utilities */
-
-    /* Implementation Methods */
-    @Override
-    public ResponseEntity<List<PlayerByTeamMobileResponse>> returnPlayerRosterByTeam(
-            List<PlayerByTeamResponse> roster) {
-        try {
-            Map<String, List<PlayerByTeamResponse>> playerByTeamResponse = new HashMap<>();
-            playerByTeamResponse.put("key", roster);
-            String jsonString = new ObjectMapper().writeValueAsString(playerByTeamResponse);
-            ObjectMapper mapper = new ObjectMapper();
-            PlayerByTeamContainer readValue = mapper.readValue(jsonString, PlayerByTeamContainer.class);
-            List<PlayerByTeamMobileResponse> playersByTeamList = new ArrayList<>();
-            for (PlayerByTeamResponse player : readValue.response) {
-                PlayerByTeamMobileResponse playerByTeamMobileResponse = new PlayerByTeamMobileResponse();
-                playerByTeamMobileResponse.firstName = player.firstName;
-                playerByTeamMobileResponse.lastName = player.lastName;
-                playerByTeamMobileResponse.position = player.position;
-                playerByTeamMobileResponse.status = player.status;
-                playerByTeamMobileResponse.playerID = player.playerID;
-                playerByTeamMobileResponse.draftKingsPlayerID = player.draftKingsPlayerID;
-                playerByTeamMobileResponse.fanDuelPlayerID = player.fanDuelPlayerID;
-                playerByTeamMobileResponse.nbaDotComPlayerID = player.nbaDotComPlayerID;
-                playerByTeamMobileResponse.teamID = player.teamID;
-                playersByTeamList.add(playerByTeamMobileResponse);
-            }
-            return new ResponseEntity<List<PlayerByTeamMobileResponse>>(playersByTeamList, HttpStatus.OK);
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<PlayerProfileResponse> returnPlayerProfileFromBackend(String playerID,
-            List<PlayerProjectionResponse> playerProjectionResponse,
-            Map<String, PlayerStatsNBADotCom> playerStats) {
-        try {
-            PlayerProjectionContainer playerProjectionContainerUnfiltered = flattenPlayerProjectionByDateMap(playerProjectionResponse);
-            PlayerProjectionResponse playerProjectedResponseFiltered = returnPlayerProfileMatchingPlayerID(playerProjectionContainerUnfiltered, playerID);
-            PlayerProfileResponse playerProfileResponse = buildPlayerProfileBasicInformation(playerProjectedResponseFiltered);
-
-            return new ResponseEntity<PlayerProfileResponse>(playerProfileResponse, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override // Players By Team Task
-    public void storeListOfPlayersOnTeam(List<PlayerByTeamResponse> roster) {
-        try {
-            Map<String, List<PlayerByTeamResponse>> playerByTeamResponse = new HashMap<>();
-            playerByTeamResponse.put("key", roster);
-            String jsonString = new ObjectMapper().writeValueAsString(playerByTeamResponse);
-            ObjectMapper mapper = new ObjectMapper();
-            PlayerByTeamContainer readValue = mapper.readValue(jsonString, PlayerByTeamContainer.class);
-            List<PlayerByTeamMobileResponse> playersByTeamList = new ArrayList<>();
-            for (PlayerByTeamResponse player : readValue.response) {
-                PlayerByTeamMobileResponse playerByTeamMobileResponse = new PlayerByTeamMobileResponse();
-                playerByTeamMobileResponse.firstName = player.firstName;
-                playerByTeamMobileResponse.lastName = player.lastName;
-                playerByTeamMobileResponse.position = player.position;
-                playerByTeamMobileResponse.status = player.status;
-                playerByTeamMobileResponse.playerID = player.playerID;
-                playerByTeamMobileResponse.teamID = player.teamID;
-                playerByTeamMobileResponse.nbaDotComPlayerID = player.nbaDotComPlayerID;
-                playerByTeamMobileResponse.fanDuelPlayerID = player.fanDuelPlayerID;
-                playerByTeamMobileResponse.fanDuelName = player.fanDuelName;
-                playerByTeamMobileResponse.fantasyAlarmPlayerID = player.fantasyAlarmPlayerID;
-                playerByTeamMobileResponse.draftKingsPlayerID = player.draftKingsPlayerID;
-                playerByTeamMobileResponse.draftKingsName = player.draftKingsName;
-                playerByTeamMobileResponse.rotoWirePlayerID = player.rotoWirePlayerID;
-                playersByTeamList.add(playerByTeamMobileResponse);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
+   
     @Override // NBA.com Player Stats Dashboard Task
     public void saveOverallBasePlayerDashboardFromNBADotCom(Integer playerID,
             Map<String, PlayerStatsNBADotCom> playerStat) {
