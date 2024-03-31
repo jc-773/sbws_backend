@@ -1,4 +1,4 @@
-package com.project.sbws.backend.services.clientRequestServices.interfaces;
+package com.project.sbws.backend.services.interfaces;
 
 import java.util.Map;
 

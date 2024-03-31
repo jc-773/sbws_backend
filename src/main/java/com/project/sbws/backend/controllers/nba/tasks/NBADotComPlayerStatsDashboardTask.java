@@ -1,15 +1,10 @@
 package com.project.sbws.backend.controllers.nba.tasks;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.project.sbws.backend.responses.PlayerStatsNBADotCom;
-import com.project.sbws.backend.services.backendExternalRequestServices.interfaces.IBackendRequestService;
-import com.project.sbws.backend.services.clientRequestServices.interfaces.IPlayerService;
+import com.project.sbws.backend.services.interfaces.IBackendRequestService;
+import com.project.sbws.backend.services.interfaces.IPlayerService;
 
 @Component
 public class NBADotComPlayerStatsDashboardTask {

@@ -1,4 +1,4 @@
-package com.project.sbws.backend.services.clientRequestServices.implementations;
+package com.project.sbws.backend.services.implementation;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.project.sbws.backend.responses.PlayerStatsNBADotCom;
-import com.project.sbws.backend.services.clientRequestServices.interfaces.IPlayerService;
+import com.project.sbws.backend.services.interfaces.IPlayerService;
 
 @Service
 public class PlayerService implements IPlayerService {

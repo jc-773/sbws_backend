@@ -1,11 +1,9 @@
 package com.project.sbws.backend.controllers.nba.tasks;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.project.sbws.backend.services.clientRequestServices.interfaces.IPlayerService;
+import com.project.sbws.backend.services.interfaces.IPlayerService;
 
 @Component
 public class NBADotComPlayerMatchupStatsAgainstTeam {

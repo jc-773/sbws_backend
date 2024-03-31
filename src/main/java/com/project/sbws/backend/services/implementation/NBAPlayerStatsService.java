@@ -1,4 +1,4 @@
-package com.project.sbws.backend.services.clientRequestServices.implementations;
+package com.project.sbws.backend.services.implementation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.sbws.backend.responses.NBADotComPlayerStatsRowSet;
 import com.project.sbws.backend.responses.PlayerStatsNBADotCom;
 import com.project.sbws.backend.responses.ResultSets;
-import com.project.sbws.backend.services.clientRequestServices.interfaces.INBAPlayerStatsService;
+import com.project.sbws.backend.services.implementation.redis.RedisPlayerStatsBySeasonService;
+import com.project.sbws.backend.services.interfaces.INBAPlayerStatsService;
 import com.project.sbws.backend.utilities.ServiceUtilities;
 
 public class NBAPlayerStatsService implements INBAPlayerStatsService {
@@ -24,17 +25,10 @@ public class NBAPlayerStatsService implements INBAPlayerStatsService {
     }
 
     @Override
-    public ResponseEntity<List<NBADotComPlayerStatsRowSet>> getPlayerCareerStats(
+    public ResponseEntity<List<NBADotComPlayerStatsRowSet>> getPlayerCareerStats(String playerID,
             Map<String, PlayerStatsNBADotCom> playerStats) {
         try {
-            PlayerStatsNBADotCom playerStatsBySeason = serviceUtilities.flattenPlayerProjectionByDateMap(playerStats,
-                    PlayerStatsNBADotCom.class);
-
-            ResultSets basePlayerDashboardSet = playerStatsBySeason.resultSets
-                    .stream().filter(n -> n.name.equals("ByYearBasePlayerDashboard")).findAny().orElse(null);
-
-            List<NBADotComPlayerStatsRowSet> basePlayerDashboardByYear = getBasePlayerDashboardByYear(
-                    basePlayerDashboardSet);
+            List<NBADotComPlayerStatsRowSet> basePlayerDashboardByYear = filterPlayerStatsMapToBasePlayerDashboard(playerStats);
 
             return new ResponseEntity<List<NBADotComPlayerStatsRowSet>>(basePlayerDashboardByYear, HttpStatus.OK);
         } catch (
@@ -43,6 +37,16 @@ public class NBAPlayerStatsService implements INBAPlayerStatsService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<NBADotComPlayerStatsRowSet> filterPlayerStatsMapToBasePlayerDashboard (Map<String, PlayerStatsNBADotCom> playerStats) {
+        PlayerStatsNBADotCom playerStatsBySeason = serviceUtilities.flattenPlayerProjectionByDateMap(playerStats,
+                    PlayerStatsNBADotCom.class);
+
+            ResultSets basePlayerDashboardSet = playerStatsBySeason.resultSets
+                    .stream().filter(n -> n.name.equals("ByYearBasePlayerDashboard")).findAny().orElse(null);
+
+            return getBasePlayerDashboardByYear(basePlayerDashboardSet);
     }
 
     private List<NBADotComPlayerStatsRowSet> getBasePlayerDashboardByYear(ResultSets basePlayerDashboardSet) {
