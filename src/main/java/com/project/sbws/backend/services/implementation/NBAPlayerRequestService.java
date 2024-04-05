@@ -1,15 +1,12 @@
-package com.project.sbws.backend.services.backendExternalRequestServices.implementations;
+package com.project.sbws.backend.services.implementation;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Hashtable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.sbws.backend.services.backendExternalRequestServices.interfaces.INBAPlayerRequestService;
-import com.project.sbws.backend.services.backendExternalRequestServices.interfaces.IRestTemplateService;
+import com.project.sbws.backend.services.interfaces.INBAPlayerRequestService;
+import com.project.sbws.backend.services.interfaces.IRestTemplateService;
 
 @Service
 public class NBAPlayerRequestService implements INBAPlayerRequestService {

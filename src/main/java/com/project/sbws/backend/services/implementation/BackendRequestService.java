@@ -1,4 +1,4 @@
-package com.project.sbws.backend.services.backendExternalRequestServices.implementations;
+package com.project.sbws.backend.services.implementation;
 
 import java.util.List;
 import java.util.Map;
@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.sbws.backend.responses.PlayerStatsNBADotCom;
-import com.project.sbws.backend.services.backendExternalRequestServices.interfaces.IBackendRequestService;
-import com.project.sbws.backend.services.backendExternalRequestServices.interfaces.INBAPlayerRequestService;
+import com.project.sbws.backend.services.interfaces.IBackendRequestService;
+import com.project.sbws.backend.services.interfaces.INBAPlayerRequestService;
+
 
 
 

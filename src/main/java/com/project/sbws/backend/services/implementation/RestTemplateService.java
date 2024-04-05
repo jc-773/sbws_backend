@@ -1,4 +1,4 @@
-package com.project.sbws.backend.services.backendExternalRequestServices.implementations;
+package com.project.sbws.backend.services.implementation;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.sbws.backend.services.backendExternalRequestServices.interfaces.IRestTemplateService;
+import com.project.sbws.backend.services.interfaces.IRestTemplateService;
 
 @Service
 public class RestTemplateService implements IRestTemplateService{
