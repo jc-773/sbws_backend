@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.project.sbws.backend.responses.PlayerStatsNBADotCom;
@@ -21,8 +22,8 @@ public class BackendRequestService implements IBackendRequestService {
 
   
     @Override
+    @Cacheable("playerCareerStats")
     public  Map<String, PlayerStatsNBADotCom> PlayerCareerStats(String playerID) {
-       
        return ( Map<String, PlayerStatsNBADotCom>) nbaPlayerRequests.PlayerCareerStats(PlayerStatsNBADotCom.class, playerID); 
     }
 }

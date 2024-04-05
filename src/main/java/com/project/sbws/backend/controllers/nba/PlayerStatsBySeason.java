@@ -33,7 +33,7 @@ public class PlayerStatsBySeason {
      public ResponseEntity <List<NBADotComPlayerStatsRowSet>> getPlayerStatsBySeason(@RequestHeader(value = "playerID", required = false)String playerID) {
         try {
                 Map<String, PlayerStatsNBADotCom> playerStats = backendRequestService.PlayerCareerStats(playerID);
-                return playerStatsService.getPlayerCareerStats(playerID, playerStats);
+                return playerStatsService.getPlayerCareerStats(playerStats);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -5,17 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.sbws.backend.responses.NBADotComPlayerStatsRowSet;
 import com.project.sbws.backend.responses.PlayerStatsNBADotCom;
 import com.project.sbws.backend.responses.ResultSets;
-import com.project.sbws.backend.services.implementation.redis.RedisPlayerStatsBySeasonService;
 import com.project.sbws.backend.services.interfaces.INBAPlayerStatsService;
 import com.project.sbws.backend.utilities.ServiceUtilities;
 
+@Service
 public class NBAPlayerStatsService implements INBAPlayerStatsService {
 
     private ServiceUtilities serviceUtilities;
@@ -25,8 +27,8 @@ public class NBAPlayerStatsService implements INBAPlayerStatsService {
     }
 
     @Override
-    public ResponseEntity<List<NBADotComPlayerStatsRowSet>> getPlayerCareerStats(String playerID,
-            Map<String, PlayerStatsNBADotCom> playerStats) {
+    @Cacheable("playerS")
+    public ResponseEntity<List<NBADotComPlayerStatsRowSet>> getPlayerCareerStats(Map<String, PlayerStatsNBADotCom> playerStats) {
         try {
             List<NBADotComPlayerStatsRowSet> basePlayerDashboardByYear = filterPlayerStatsMapToBasePlayerDashboard(playerStats);
 
