@@ -17,7 +17,6 @@ import com.project.sbws.backend.responses.ResultSets;
 import com.project.sbws.backend.services.interfaces.INBAPlayerStatsService;
 import com.project.sbws.backend.utilities.ServiceUtilities;
 
-@Service
 public class NBAPlayerStatsService implements INBAPlayerStatsService {
 
     private ServiceUtilities serviceUtilities;
@@ -27,7 +26,6 @@ public class NBAPlayerStatsService implements INBAPlayerStatsService {
     }
 
     @Override
-    @Cacheable("playerS")
     public ResponseEntity<List<NBADotComPlayerStatsRowSet>> getPlayerCareerStats(Map<String, PlayerStatsNBADotCom> playerStats) {
         try {
             List<NBADotComPlayerStatsRowSet> basePlayerDashboardByYear = filterPlayerStatsMapToBasePlayerDashboard(playerStats);

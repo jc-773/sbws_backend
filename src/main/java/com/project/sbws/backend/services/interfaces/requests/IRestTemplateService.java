@@ -1,4 +1,4 @@
-package com.project.sbws.backend.services.interfaces;
+package com.project.sbws.backend.services.interfaces.requests;
 
 import java.util.Hashtable;
 

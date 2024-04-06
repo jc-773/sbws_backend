@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
+import com.project.sbws.backend.services.implementation.NBAPlayerStatsService;
+import com.project.sbws.backend.services.implementation.requests.NBAPlayerRequestService;
+
 
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 @EnableScheduling
@@ -19,6 +22,11 @@ public class DemoApplication {
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
+	}
+
+	@Bean
+	public NBAPlayerStatsService nBAPlayerStatsService() {
+		return new NBAPlayerStatsService();
 	}
 
 
