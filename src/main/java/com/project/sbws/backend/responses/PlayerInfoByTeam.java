@@ -6,143 +6,143 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PlayerInfoByTeam {
      @JsonProperty("PlayerID")
-    private int playerID;
+    public int playerID;
 
     @JsonProperty("SportsDataID")
-    private String sportsDataID;
+    public String sportsDataID;
 
     @JsonProperty("Status")
-    private String status;
+    public String status;
 
     @JsonProperty("TeamID")
-    private int teamID;
+    public int teamID;
 
     @JsonProperty("Team")
-    private String team;
+    public String team;
 
     @JsonProperty("Jersey")
-    private int jersey;
+    public int jersey;
 
     @JsonProperty("PositionCategory")
-    private String positionCategory;
+    public String positionCategory;
 
     @JsonProperty("Position")
-    private String position;
+    public String position;
 
     @JsonProperty("FirstName")
-    private String firstName;
+    public String firstName;
 
     @JsonProperty("LastName")
-    private String lastName;
+    public String lastName;
 
     @JsonProperty("Height")
-    private int height;
+    public int height;
 
     @JsonProperty("Weight")
-    private int weight;
+    public int weight;
 
     @JsonProperty("BirthDate")
-    private Date birthDate;
+    public Date birthDate;
 
     @JsonProperty("BirthCity")
-    private String birthCity;
+    public String birthCity;
 
     @JsonProperty("BirthCountry")
-    private String birthCountry;
+    public String birthCountry;
 
     @JsonProperty("College")
-    private String college;
+    public String college;
 
     @JsonProperty("Salary")
-    private int salary;
+    public int salary;
 
     @JsonProperty("PhotoUrl")
-    private String photoUrl;
+    public String photoUrl;
 
     @JsonProperty("Experience")
-    private int experience;
+    public int experience;
 
     @JsonProperty("SportRadarPlayerID")
-    private String sportRadarPlayerID;
+    public String sportRadarPlayerID;
 
     @JsonProperty("RotoworldPlayerID")
-    private int rotoworldPlayerID;
+    public int rotoworldPlayerID;
 
     @JsonProperty("RotoWirePlayerID")
-    private int rotoWirePlayerID;
+    public int rotoWirePlayerID;
 
     @JsonProperty("FantasyAlarmPlayerID")
-    private int fantasyAlarmPlayerID;
+    public int fantasyAlarmPlayerID;
 
     @JsonProperty("StatsPlayerID")
-    private int statsPlayerID;
+    public int statsPlayerID;
 
     @JsonProperty("SportsDirectPlayerID")
-    private int sportsDirectPlayerID;
+    public int sportsDirectPlayerID;
 
     @JsonProperty("XmlTeamPlayerID")
-    private int xmlTeamPlayerID;
+    public int xmlTeamPlayerID;
 
     @JsonProperty("InjuryStatus")
-    private String injuryStatus;
+    public String injuryStatus;
 
     @JsonProperty("InjuryBodyPart")
-    private String injuryBodyPart;
+    public String injuryBodyPart;
 
     @JsonProperty("InjuryStartDate")
-    private Date injuryStartDate;
+    public Date injuryStartDate;
 
     @JsonProperty("InjuryNotes")
-    private String injuryNotes;
+    public String injuryNotes;
 
     @JsonProperty("FanDuelPlayerID")
-    private int fanDuelPlayerID;
+    public int fanDuelPlayerID;
 
     @JsonProperty("DraftKingsPlayerID")
-    private int draftKingsPlayerID;
+    public int draftKingsPlayerID;
 
     @JsonProperty("YahooPlayerID")
-    private int yahooPlayerID;
+    public int yahooPlayerID;
 
     @JsonProperty("FanDuelName")
-    private String fanDuelName;
+    public String fanDuelName;
 
     @JsonProperty("DraftKingsName")
-    private String draftKingsName;
+    public String draftKingsName;
 
     @JsonProperty("YahooName")
-    private String yahooName;
+    public String yahooName;
 
     @JsonProperty("DepthChartPosition")
-    private String depthChartPosition;
+    public String depthChartPosition;
 
     @JsonProperty("DepthChartOrder")
-    private int depthChartOrder;
+    public int depthChartOrder;
 
     @JsonProperty("GlobalTeamID")
-    private int globalTeamID;
+    public int globalTeamID;
 
     @JsonProperty("FantasyDraftName")
-    private String fantasyDraftName;
+    public String fantasyDraftName;
 
     @JsonProperty("FantasyDraftPlayerID")
-    private int fantasyDraftPlayerID;
+    public int fantasyDraftPlayerID;
 
     @JsonProperty("UsaTodayPlayerID")
-    private int usaTodayPlayerID;
+    public int usaTodayPlayerID;
 
     @JsonProperty("UsaTodayHeadshotUrl")
-    private String usaTodayHeadshotUrl;
+    public String usaTodayHeadshotUrl;
 
     @JsonProperty("UsaTodayHeadshotNoBackgroundUrl")
-    private String usaTodayHeadshotNoBackgroundUrl;
+    public String usaTodayHeadshotNoBackgroundUrl;
 
     @JsonProperty("UsaTodayHeadshotUpdated")
-    private Date usaTodayHeadshotUpdated;
+    public Date usaTodayHeadshotUpdated;
 
     @JsonProperty("UsaTodayHeadshotNoBackgroundUpdated")
-    private Date usaTodayHeadshotNoBackgroundUpdated;
+    public Date usaTodayHeadshotNoBackgroundUpdated;
 
     @JsonProperty("NbaDotComPlayerID")
-    private int nbaDotComPlayerID;
+    public int nbaDotComPlayerID;
 }
