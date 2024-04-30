@@ -17,6 +17,7 @@ import com.project.sbws.backend.responses.ResultSets;
 import com.project.sbws.backend.services.interfaces.INBAPlayerStatsService;
 import com.project.sbws.backend.utilities.ServiceUtilities;
 
+@Service
 public class NBAPlayerStatsService implements INBAPlayerStatsService {
 
     private ServiceUtilities serviceUtilities;
