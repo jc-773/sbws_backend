@@ -1,27 +1,24 @@
-package com.project.sbws.backend.services.implementation;
+package com.project.sbws.backend.services.implementation.requests;
 
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.sbws.backend.services.interfaces.IRestTemplateService;
+import com.project.sbws.backend.services.interfaces.requests.IRestTemplateService;
 
 @Service
 public class RestTemplateService implements IRestTemplateService{

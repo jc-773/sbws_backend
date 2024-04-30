@@ -27,7 +27,6 @@ public class NBAPlayerStatsService implements INBAPlayerStatsService {
     }
 
     @Override
-    @Cacheable("playerS")
     public ResponseEntity<List<NBADotComPlayerStatsRowSet>> getPlayerCareerStats(Map<String, PlayerStatsNBADotCom> playerStats) {
         try {
             List<NBADotComPlayerStatsRowSet> basePlayerDashboardByYear = filterPlayerStatsMapToBasePlayerDashboard(playerStats);
