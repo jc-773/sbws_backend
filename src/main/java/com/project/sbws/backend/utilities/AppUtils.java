@@ -6,10 +6,6 @@ import org.springframework.stereotype.Service;
 public class AppUtils {
     
 
-    public AppUtils() {
-
-    }
-
     public static boolean isNullOrEmpty(String a) {
         return a == null || a.isEmpty() || a.isBlank();
     }
