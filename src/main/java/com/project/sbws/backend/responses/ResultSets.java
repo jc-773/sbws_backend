@@ -13,8 +13,6 @@ public class ResultSets {
 
     @JsonProperty("rowSet")
     public List<List<Object>> rowSet;
-
-    
 }
 
 
