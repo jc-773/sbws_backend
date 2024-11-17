@@ -11,28 +11,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.sbws.backend.exceptions.ApiError;
 import com.project.sbws.backend.exceptions.UserNotFoundException;
 import com.project.sbws.backend.models.NBAPlayerStatsDashboard;
 import com.project.sbws.backend.repositories.PlayerStatsByYearRepository;
 import com.project.sbws.backend.repositories.documents.PlayerStatsBySeasonDocument;
 import com.project.sbws.backend.services.implementation.NBAPlayerStatsService;
-import com.project.sbws.backend.services.implementation.requests.NBAPlayerRequestService;
-import com.project.sbws.backend.services.interfaces.INBAPlayerStatsService;
-import com.project.sbws.backend.services.interfaces.requests.INBAPlayerRequestService;
+
 
 
 @RestController
 public class PlayerStatsBySeason {
     
-    IBackendRequestService backendRequestService;
     NBAPlayerStatsService playerStatsService;
     PlayerStatsByYearRepository statsByYearRepository;
    
 
     @Autowired
-    public PlayerStatsBySeason(IBackendRequestService backendRequestService, PlayerStatsByYearRepository statsByYearRepository) {
-        this.backendRequestService = backendRequestService;
+    public PlayerStatsBySeason(PlayerStatsByYearRepository statsByYearRepository) {
         this.playerStatsService = new NBAPlayerStatsService();
         this.statsByYearRepository = statsByYearRepository;
     }
