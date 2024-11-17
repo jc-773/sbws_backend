@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.sbws.backend.exceptions.ApiError;
+import com.project.sbws.backend.exceptions.UserNotFoundException;
 import com.project.sbws.backend.models.NBAPlayerStatsDashboard;
 import com.project.sbws.backend.repositories.PlayerStatsByYearRepository;
 import com.project.sbws.backend.repositories.documents.PlayerStatsBySeasonDocument;
@@ -32,22 +36,13 @@ public class PlayerStatsBySeason {
     }
 
     @RequestMapping(value = "/nba/player/stats/allseasons", method=RequestMethod.GET)
-     public List<NBAPlayerStatsDashboard> getPlayerStatsBySeason(@RequestHeader(value = "playerID", required = false)String playerID) {
-        try {
-                //Map<String, PlayerStatsNBADotCom> playerStats = backendRequestService.PlayerCareerStats(playerID);
-                //return playerStatsService.getPlayerCareerStats(playerStats);
-                
+     public List<NBAPlayerStatsDashboard> getPlayerStatsBySeason(@RequestHeader(value = "playerID", required = true) String playerID) {
                 Optional<PlayerStatsBySeasonDocument> documentOptional = statsByYearRepository.findById(playerID);;
                 if (documentOptional.isPresent()) {
                     PlayerStatsBySeasonDocument document = documentOptional.get();
                     return document.getStatsForYear();
                 } else {
-                    return null; // or throw an exception if that's more appropriate
+                    throw new UserNotFoundException("Player with ID {" + playerID + "} not found.");
                 }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-     }
+        } 
 }
