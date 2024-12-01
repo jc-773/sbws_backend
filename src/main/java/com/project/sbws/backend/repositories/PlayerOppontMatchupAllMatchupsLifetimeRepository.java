@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 
 import com.project.sbws.backend.repositories.documents.PlayerOppontMatchupAllMatchupsLifetimeDocument;
 
@@ -19,5 +18,5 @@ public interface PlayerOppontMatchupAllMatchupsLifetimeRepository extends MongoR
         "{ '$match': { '_id': ?0, 'gameLog.matchup': ?1 } }",
         "{ '$project': { 'gameLog': { '$filter': { 'input': '$gameLog', 'as': 'log', 'cond': { '$eq': ['$$log.matchup', ?1] } } }, '_id': 0 } }"
     })
-    List<PlayerOppontMatchupAllMatchupsLifetimeDocument> findByPlayerIdAndMatchup(String playerID, String matchup);
+    Optional<PlayerOppontMatchupAllMatchupsLifetimeDocument> findByPlayerIdAndMatchup(String playerID, String matchup);
 }
