@@ -5,5 +5,7 @@ There is a separate service that I have created to retrieve and store this data 
 
 These endpoints read from said database, so until I package this application in a container along with it's database, you wont receive any data from the endpoints as of 12/02/24. 
 
+Because of that, my next steps are to leverage an in-memory cache like Redis, to retrieve some basic data without hitting disk.
+
 Regardless, the Swagger doc for this app can be found here once the app is running: http://localhost:8082/swagger-ui/index.html
 
