@@ -12,10 +12,15 @@ import com.project.sbws.backend.services.interfaces.requests.INBAPlayerRequestSe
 @Service
 public class NBAPlayerRequestService implements INBAPlayerRequestService {
 
+    BackendRequestService nbaPlayerRequests;
+    
+    RedisPlayerStatsBySeasonService playerCachingService;
+    
     @Autowired
-    private BackendRequestService nbaPlayerRequests;
-    @Autowired
-    private RedisPlayerStatsBySeasonService playerCachingService;
+    public NBAPlayerRequestService(BackendRequestService nbaPlayerRequests, RedisPlayerStatsBySeasonService playerCachingService ) {
+        this.nbaPlayerRequests = nbaPlayerRequests;
+        this.playerCachingService = playerCachingService;
+    }
 
     @Override
     public Map<String, PlayerStatsNBADotCom> PlayerCareerStats(String playerID) {

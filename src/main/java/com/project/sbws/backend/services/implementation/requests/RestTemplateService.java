@@ -25,8 +25,12 @@ public class RestTemplateService implements IRestTemplateService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestTemplateService.class);
     
+    RestTemplate restTemplate;
+
     @Autowired
-    private RestTemplate restTemplate;
+    public RestTemplateService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
     
     @Override
     public <PlayerStatsNBADotCom> PlayerStatsNBADotCom getForObjectResponse(Class<PlayerStatsNBADotCom> clazz, String url, Hashtable<String, String> customHeaders) {

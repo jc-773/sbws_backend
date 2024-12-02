@@ -13,12 +13,16 @@ import com.project.sbws.backend.services.interfaces.requests.INBATeamRequestServ
 @Service
 public class NBATeamRequestService implements INBATeamRequestService {
 
-   @Autowired
-    IBackendRequestService backendRequest;
+    IBackendRequestService backendRequestService;
+
+    @Autowired
+    public NBATeamRequestService(IBackendRequestService backendRequestService) {
+      this.backendRequestService = backendRequestService;
+    }
 
     @Override
     public  List<LinkedHashMap> playersOnCurrentTeamRoster(String teamName) {
-       return ( List<LinkedHashMap>) backendRequest.PlayersOnCurrentTeamRoster(PlayerInfoByTeam.class, teamName); 
+       return ( List<LinkedHashMap>) backendRequestService.PlayersOnCurrentTeamRoster(PlayerInfoByTeam.class, teamName); 
     }
     
 }

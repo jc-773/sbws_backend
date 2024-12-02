@@ -11,13 +11,12 @@ import com.project.sbws.backend.services.interfaces.requests.IRestTemplateServic
 @Service
 public class BackendRequestService implements IBackendRequestService {
   
-    @Autowired
-    private IRestTemplateService requestTemplateService;
+    IRestTemplateService requestTemplateService;
 
-    // @Autowired
-    // public BackendRequestService() {
-    //     this.requestTemplateService = new RestTemplateService();
-    // }
+    @Autowired
+    public BackendRequestService(IRestTemplateService requestTemplateService) {
+        this.requestTemplateService = requestTemplateService;
+    }
 
     @Override
     public <T> T PlayerCareerStats(Class<T> clazz, String playerID) {
